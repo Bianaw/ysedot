@@ -4,7 +4,7 @@ document.getElementById('reset-form').addEventListener('submit', async (e) => {
   const email = document.getElementById('email').value;
 
   try {
-    const response = await fetch('http://localhost:5000/api/users/request-reset', { // עדכון לכתובת הנכונה
+    const response = await fetch('http://localhost:5001/api/users/request-reset', { // עדכון לכתובת הנכונה
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email }),

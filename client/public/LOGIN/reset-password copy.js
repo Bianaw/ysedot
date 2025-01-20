@@ -9,7 +9,7 @@ document.getElementById("resetPasswordForm").addEventListener("submit", async (e
 
     try {
         // שליחת הבקשה עם Axios
-      const response = await axios.post('http://localhost:5000/api/users/retrieve-password', formData, {
+      const response = await axios.post('http://localhost:5001/api/users/retrieve-password', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

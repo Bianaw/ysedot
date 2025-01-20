@@ -62,11 +62,12 @@ router.post('/signup', upload.none(), async (req, res) => {
 router.post('/login', async (req, res) => {
     try {
         const { username, password } = req.body;
+        console.log("Login attempt:", { username, password }); // הדפסת נתונים לבדיקה
 
         // חפש את המשתמש במסד הנתונים
         const user = await User.findOne({ username });
         if (!user) {
-            //console.log("Username not found:", username);
+            console.log("Username not found:", username);
             return res.status(400).send({ message: "Invalid username or password." });
         }
 
@@ -77,10 +78,15 @@ router.post('/login', async (req, res) => {
         }
 
         // אם הסיסמה תקינה
-        res.status(200).send({ message: "Login successful", username: user.username,firstName: user.firstName, 
-            lastName: user.lastName });
+        console.log("Login successful for user:", username);
+        res.status(200).send({ 
+            message: "Login successful", 
+            username: user.username, 
+            firstName: user.firstName, 
+            lastName: user.lastName 
+        });
     } catch (error) {
-        // console.error("Error during login:", error);
+        console.error("Error during login:", error);
         res.status(500).send({ message: "An error occurred during login." });
     }
 });

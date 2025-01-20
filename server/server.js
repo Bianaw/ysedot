@@ -14,7 +14,7 @@ const upload = multer(); // יצירת אינסטנס של multer
 app.use(upload.none()); // מתמודד עם בקשות multipart/form-data
 const morgan = require('morgan');
 app.use(morgan('dev'));
-
+ 
 // Log incoming requests
 app.use((req, res, next) => {
     console.log(`Incoming request: ${req.method} ${req.path}`);

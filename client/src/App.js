@@ -34,7 +34,6 @@ function App() {
   }}
   title="Home Page"
 />
-            
           }
         />
         
@@ -44,6 +43,7 @@ function App() {
     </Router>
   );
 }
+
 
 export default App;
 

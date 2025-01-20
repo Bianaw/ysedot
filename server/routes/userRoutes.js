@@ -67,22 +67,21 @@ router.post('/login', async (req, res) => {
         // חפש את המשתמש במסד הנתונים
         const user = await User.findOne({ username });
         if (!user) {
-           // console.log("Username not found:", username);
+            //console.log("Username not found:", username);
             return res.status(400).send({ message: "Invalid username or password." });
         }
 
         // השווה את הסיסמה המוזנת לסיסמה המוצפנת
         const isPasswordValid = await bcrypt.compare(password, user.password);
-       // console.log("Password comparison result:", isPasswordValid); // הדפס אם ההשוואה מצליחה
-
         if (!isPasswordValid) {
             return res.status(400).send({ message: "Invalid username or password." });
         }
 
         // אם הסיסמה תקינה
-        res.status(200).send({ message: "Login successful", username: user.username });
+        res.status(200).send({ message: "Login successful", username: user.username,firstName: user.firstName, 
+            lastName: user.lastName });
     } catch (error) {
-        console.error("Error during login:", error);
+        // console.error("Error during login:", error);
         res.status(500).send({ message: "An error occurred during login." });
     }
 });
@@ -145,7 +144,7 @@ router.post('/request-reset', async (req, res) => {
     },
   });
 
-  const resetLink = `http://localhost:5000/reset-password.html?token=${token}`;
+  const resetLink = `http://localhost:5001/reset-password.html?token=${token}`;
   try {
     await transporter.sendMail({
       to: email,

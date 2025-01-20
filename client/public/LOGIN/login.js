@@ -10,33 +10,49 @@ function Login() {
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError('');
-
+    e.preventDefault(); // Prevent page reload
+    setError(''); // Clear previous errors
+  
     try {
-      // יצירת אובייקט FormData
-      const formData = new FormData();
-      formData.append('username', username);
-      formData.append('password', password);
-
-      // שליחת הבקשה עם Axios
-      const response = await axios.post('http://localhost:5001/api/users/login', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-
-      // שמירת שם המשתמש ב-localStorage
-      localStorage.setItem('username', response.data.username);
-
-      // מעבר לדף הראשי
-      navigate('/main');
+      // Sending the login request
+      const response = await axios.post(
+        'http://localhost:5001/api/users/login',
+        { username, password }, // Sending data as JSON
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+  
+      // Check if response contains the required data
+      if (
+        response.data &&
+        response.data.username &&
+        response.data.firstName &&
+        response.data.lastName
+      ) {
+        // Save user details in localStorage
+        localStorage.setItem('username', response.data.username);
+        localStorage.setItem('firstName', response.data.firstName);
+        localStorage.setItem('lastName', response.data.lastName);
+  
+        // Navigate to the main page
+        navigate('/main');
+      } else {
+        throw new Error('Invalid response from server.');
+      }
     } catch (err) {
-      // טיפול בשגיאות
-      setError(err.response?.data || 'An error occurred. Please try again.');
+      // Handle errors
+      console.error('Error during login:', err);
+      const errorMessage =
+        err.response?.data?.message ||
+        err.message ||
+        'An error occurred. Please try again.';
+      setError(errorMessage);
     }
   };
-
+  
   return (
     <div className="form-container">
       <h2>Welcome Back!</h2>

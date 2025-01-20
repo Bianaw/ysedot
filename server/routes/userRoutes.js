@@ -14,7 +14,8 @@ const resetTokens = {};
 const multer = require("multer");
 const upload = multer(); // הגדרה לטיפול בנתוני טפסים
 
-router.post('/signup', upload.none(), async (req, res) => {
+//נתיב הרשמה 
+router.post('/signup', express.json(), async (req, res) => {
     try {
         console.log("User Data:", req.body);
 

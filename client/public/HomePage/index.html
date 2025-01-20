@@ -118,9 +118,11 @@
         <button id="logout-button">Log Out</button>
       `;
 
-      // טיפול בכפתור "Log Out"
+      /// טיפול בכפתור "Log Out"
       document.getElementById("logout-button").addEventListener("click", () => {
         localStorage.removeItem("username"); // מחיקת שם המשתמש מה-localStorage
+        localStorage.removeItem("firstName"); // מחיקת שם פרטי
+        localStorage.removeItem("lastName"); // מחיקת שם משפחה
         location.reload(); // רענון הדף
       });
     } else {

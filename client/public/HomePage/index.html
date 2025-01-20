@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Homepage</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+  <!-- כותרת ראשית -->
+  <div id="user-actions"></div>
+  <header class="page-header">
+    <h1>SCM</h1>
+    <p class="subtitle">
+      Smart <span class="highlight">Community</span> Maps
+    </p>
+  </header>
+
+  <!-- קו שחור -->
+  <hr class="line">
+
+  <!-- כפתורים מרכזיים -->
+  <section class="buttons-container">
+    <button class="settings-button"><i class="fa-solid fa-cog"></i></button>
+    <button class="contact-button"><i class="fa-solid fa-phone"></i></button>
+    <button class="search-button"><i class="fa-solid fa-magnifying-glass"></i></button>
+    <button class="favorites-button"><i class="fa-solid fa-heart"></i></button>
+
+    <!-- כפתור פעמון -->
+    <div class="notification-button">
+      <button id="notification-icon">
+        <i class="fa-solid fa-bell"></i>
+        <span id="notification-count" class="notification-count"></span>
+      </button>
+      <div id="notification-dropdown" class="notification-dropdown"></div>
+    </div>
+  </section>
+
+  <!-- אזור הסינון -->
+<section class="filter-bar">
+  <div class="filter">
+    <select id="filter-transaction">
+      <option value="all">הכל</option>
+      <option value="מכירה">מכירה</option>
+      <option value="השכרה">השכרה</option>
+    </select>
+  </div>
+
+  <div class="dropdown-container">
+    <div class="dropdown-button">סוג הנכס</div>
+    <div class="dropdown-content">
+      <label><input type="checkbox" class="filter-type" value="הכל" checked> הכל</label>
+      <label><input type="checkbox" class="filter-type" value="דירה"> דירה</label>
+      <label><input type="checkbox" class="filter-type" value="דירת גן"> דירת גן</label>
+      <label><input type="checkbox" class="filter-type" value="יחידת דיור"> יחידת דיור</label>
+      <label><input type="checkbox" class="filter-type" value="סטודיו"> סטודיו</label>
+    </div>
+  </div>
+
+  <div class="dropdown-container">
+    <div class="dropdown-button">סינונים נוספים</div>
+    <div class="dropdown-content">
+      <label><input type="checkbox" id="filter-parking" value="חניה"> חניה</label>
+      <label><input type="checkbox" id="filter-elevator" value="מעלית"> מעלית</label>
+      <label><input type="checkbox" id="filter-balcony" value="מרפסת"> מרפסת</label>
+      <label><input type="checkbox" id="filter-storage" value="מחסן"> מחסן</label>
+      <label><input type="checkbox" id="filter-mamad" value="ד'ממ"> ממ"ד</label>
+      <label><input type="checkbox" id="filter-furnished" value="ריהוט"> ריהוט</label>
+    </div>
+  </div>
+
+  <div class="dropdown-container">
+    <div class="dropdown-button">חדרים</div>
+    <div class="dropdown-content room-buttons">
+      <label><input type="radio" name="rooms" value="0" id="rooms-all" checked> כל החדרים</label>
+      <label><input type="radio" name="rooms" value="1"> 1</label>
+      <label><input type="radio" name="rooms" value="1.5"> 1.5</label>
+      <label><input type="radio" name="rooms" value="2"> 2</label>
+      <label><input type="radio" name="rooms" value="2.5"> 2.5</label>
+      <label><input type="radio" name="rooms" value="3"> 3</label>
+      <label><input type="radio" name="rooms" value="3.5"> 3.5</label>
+      <label><input type="radio" name="rooms" value="4"> 4</label>
+      <label><input type="radio" name="rooms" value="5"> 5</label>
+      <label><input type="radio" name="rooms" value="6+"> 6+</label>
+    </div>
+  </div>
+
+  <div class="dropdown-container">
+    <div class="dropdown-button">מחיר</div>
+    <div class="dropdown-content">
+      <div class="custom-price">
+        <label for="custom-price-input">מחיר מקסימלי:</label>
+        <input type="number" id="filter-price" placeholder="הכנס מחיר מקסימלי" min="0">
+      </div>
+    </div>
+  </div>
+
+  <div class="search-button">
+    <button id="search-button">חיפוש</button>
+  </div>
+</section>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const userActions = document.getElementById("user-actions");
+    const username = localStorage.getItem("username");
+    const firstName = localStorage.getItem("firstname");
+    const lastName = localStorage.getItem("lastname");
+
+    console.log(username)
+
+
+    if (username) {
+      // אם המשתמש מחובר
+      userActions.innerHTML = `
+        <span>שלום, ${firstName} ${lastName}</span>
+        <button id="logout-button">Log Out</button>
+      `;
+
+      // טיפול בכפתור "Log Out"
+      document.getElementById("logout-button").addEventListener("click", () => {
+        localStorage.removeItem("username"); // מחיקת שם המשתמש מה-localStorage
+        location.reload(); // רענון הדף
+      });
+    } else {
+      // אם המשתמש לא מחובר
+      userActions.innerHTML = `
+        <a href="../LOGIN/login.html" class="login-button">התחברות</a>
+      `;
+    }
+  });
+</script>
+
+ <!-- אזור הדירות -->
+<section class="layout-container">
+  <div class="properties-container">
+  </div>
+</section>
+
+<script type="module">
+  import posts from './posts.js';
+
+  const propertiesContainer = document.querySelector('.properties-container');
+
+  function renderPosts(posts) {
+  const propertiesContainer = document.querySelector('.properties-container');
+  propertiesContainer.innerHTML = ''; // מנקה תצוגה קיימת
+  if (posts.length === 0) {
+    propertiesContainer.innerHTML = '<p>לא נמצאו תוצאות</p>';
+    return;
+  }
+
+  // יצירת HTML לכל דירה
+  posts.forEach(post => {
+    const postHTML = `
+      <div class="property-card-horizontal">
+        <img class="property-image" src="${post.image}" alt="${post.title}">
+        <div class="property-details">
+          <h3>${post.title}</h3>
+          <p><strong>₪${post.price}</strong></p>
+          <p>${post.type} - דירה ${post.rooms} חדרים (${post.size} מ"ר)</p>
+          <p>קומה ${post.floor}</p>
+          <a href="../detailss/details.html?id=${post.id}" class="details-button">פרטים נוספים</a>
+          
+        </div>
+      </div>`;
+    propertiesContainer.innerHTML += postHTML;
+  });
+}
+
+  // פונקציה לחיפוש
+function searchPosts() {
+    const type = document.getElementById('filter-transaction').value;
+    const maxPrice = parseFloat(document.getElementById('filter-price').value) || Infinity;
+    const rooms = document.querySelector('input[name="rooms"]:checked').value;
+
+    // סינון הדירות
+    const filteredPosts = posts.filter((post) => {
+        const matchesType = type === 'all' || post.type === type;
+        const matchesPrice = post.price <= maxPrice;
+        const matchesRooms = rooms === '0' || post.rooms.toString() === rooms;
+
+        return matchesType && matchesPrice && matchesRooms;
+    });
+
+    // שמירת התוצאות ב-localStorage
+    localStorage.setItem('searchResults', JSON.stringify(filteredPosts));
+
+    // מעבר לדף התוצאות
+    window.location.href = '../search/search.html';
+}
+
+// הוספת מאזין לאירוע לחיצה על כפתור חיפוש
+document.getElementById('search-button').addEventListener('click', searchPosts);
+
+
+  // טוען את הדירות בהתחלה
+  renderPosts(posts);
+</script>
+ 
+
+  <script type="module" src="script.js" defer></script>
+
+  <!-- אזור הקישורים החברתיים -->
+  <footer class="help-footer">
+    <div class="social-icons">
+      <a href="https://www.instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+      <a href="https://www.linkedin.com" target="_blank"><i class="fab fa-linkedin"></i></a>
+      <a href="https://www.facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
+      <a href="https://play.google.com" target="_blank"><i class="fab fa-google-play"></i></a>
+      <a href="https://www.apple.com/app-store/" target="_blank"><i class="fab fa-apple"></i></a>
+    </div>
+    <div class="help-text">
+      <p>עזרה </p>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,376 @@
+/* עיצוב כללי */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #450101;
+}
+
+/* כותרת ראשית ותת-כותרת */
+.page-header {
+    margin: 0;
+    margin-right: 10%;
+    text-align: right;
+}
+
+.page-header h1 {
+    font-size: 2em;
+    font-weight: bold;
+    color: #450101;
+    margin: 0;
+}
+
+.page-header .subtitle {
+    font-size: 1em;
+    color: #582121;
+    margin: 5px 0;
+    font-weight: bold;
+}
+
+.page-header .subtitle .highlight {
+    color: #a35250;
+    font-weight: bold;
+}
+/* כפתור התחברות */
+.login-button {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    padding: 10px 20px;
+    background-color: #450101;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.login-button:hover {
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+}
+
+/* קו שחור */
+.line {
+    border: none;
+    border-top: 2px solid #fae2e1;
+    margin: 20px auto;
+    width: 80%;
+}
+
+/* עיצוב כפתורים */
+.buttons-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px 0;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #450101;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: transform 0.2s ease;
+}
+
+button:hover {
+    background-color: #582121;
+    color: white;
+    transform: scale(1.05);
+}
+
+/* עיצוב תיבות בחירה */
+.filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center; /* למרכז את האלמנטים */
+    flex-direction: row-reverse; /* הופך את הסדר משמאל לימין */
+}
+
+
+.filter select, .filter input {
+    width: 150px;
+    padding: 5px 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+    color: #333;
+    font-size: 1em;
+    cursor: pointer;
+}
+
+.filter::after {
+    content: '\25BC'; /* חץ מותאם אישית */
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+/* Dropdown כללי */
+.dropdown-container {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-button {
+    width: 150px;
+    padding: 5px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    color: #333;
+    text-align: center;
+    cursor: pointer;
+}
+
+.dropdown-button:hover {
+    background-color: #f4f4f4;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    z-index: 10;
+}
+
+.dropdown-content label {
+    display: block;
+    padding: 5px;
+    color: #333;
+    cursor: pointer;
+}
+
+.dropdown-content label:hover {
+    background-color: #f4f4f4;
+}
+
+.dropdown-container.active .dropdown-content {
+    display: block;
+}
+
+/* כפתורי חדרים */
+.room-buttons label {
+    display: inline-block;
+    margin: 5px;
+}
+
+.room-buttons input {
+    margin-right: 5px;
+}
+
+/* כפתור חיפוש */
+.search-button button {
+    background-color: #450101;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-size: 1.1em;
+    cursor: pointer;
+}
+
+.search-button button:hover {
+    background-color: #582121;
+}
+/* עיצוב השדה המותאם */
+.custom-price {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.custom-price label {
+    font-size: 0.9em;
+    color: #333;
+}
+
+.custom-price input {
+    padding: 5px 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1em;
+    width: 100%; /* מתאים את השדה לרוחב המכולה */
+}
+
+    
+/* עיצוב אזור הדירות */
+.properties-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin: 20px auto;
+    width: 90%;
+}
+
+.property-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    text-align: center;
+    overflow: hidden;
+}
+
+.property-card img {
+    width: 100%;
+    height: auto;
+    border-bottom: 1px solid #ddd;
+}
+
+.property-card h3 {
+    margin: 10px 0;
+    color: #450101;
+    font-size: 1.2em;
+}
+
+.property-card p {
+    margin: 5px 10px;
+    color: #333;
+    font-size: 0.9em;
+}
+
+.property-card:hover {
+    transform: scale(1.03);
+    transition: transform 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+/* מבנה כללי: דירות + מפה */
+.layout-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+    margin: 20px auto;
+    width: 90%;
+}
+
+/* עמודת הדירות */
+.properties-container {
+    display: flex;
+    flex-direction: column; /* דירות אחת תחת השנייה */
+    gap: 20px;
+    flex: 2; /* רוחב הדירות */
+}
+
+.property-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    text-align: center;
+    overflow: hidden;
+}
+
+.property-card img {
+    width: 100%;
+    height: auto;
+    border-bottom: 1px solid #ddd;
+}
+
+.property-card h3 {
+    margin: 10px 0;
+    color: #450101;
+    font-size: 1.2em;
+}
+
+.property-card p {
+    margin: 5px 0;
+    color: #333;
+    font-size: 0.9em;
+}
+
+.property-card:hover {
+    transform: scale(1.03);
+    transition: transform 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* עמודת המפה */
+.map-container {
+    flex: 1; /* רוחב המפה */
+    text-align: center;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.map-container img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+/* עיצוב כפתור המועדפים */
+.favorites-button {
+    position: relative;
+    display: inline-block;
+}
+
+/* עיגול שמציג את מספר המועדפים */
+.favorites-count {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 5px 8px;
+    font-size: 0.8em;
+    font-weight: bold;
+    display: none; /* מוסתר בהתחלה */
+}
+
+/* תפריט המועדפים */
+.favorites-dropdown {
+    display: none;
+    position: absolute;
+    top: 40px;
+    right: 0;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    width: 250px;
+    z-index: 10;
+    padding: 10px;
+}
+
+.favorites-dropdown p {
+    margin: 5px 0;
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+    font-size: 1em;
+    text-align: left;
+}
+
+.favorites-dropdown p:last-child {
+    border-bottom: none;
+}
+
+.favorites-dropdown p:hover {
+    background-color: #f4f4f4;
+}
+.favorite-button.favorited i {
+    color: red; /* Change the heart color to red when favorited */
+  }
+  

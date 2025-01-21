@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Account Closure Settings</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .account-closure-btn {
+      padding: 10px 20px;
+      font-size: 14px;
+      background-color: #f44336;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .account-closure-btn:hover {
+      background-color: #d32f2f;
+    }
+
+    .confirmation-section {
+      margin-top: 20px;
+      display: none; /* Hidden by default */
+    }
+
+    .confirm-btn, .cancel-btn {
+      padding: 10px 20px;
+      font-size: 14px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .confirm-btn {
+      background-color: #4caf50;
+      color: white;
+    }
+
+    .confirm-btn:hover {
+      background-color: #388e3c;
+    }
+
+    .cancel-btn {
+      background-color: #757575;
+      color: white;
+    }
+
+    .cancel-btn:hover {
+      background-color: #5c5c5c;
+    }
+
+    .notification {
+      margin-top: 20px;
+      padding: 10px;
+      background-color: #4caf50;
+      color: white;
+      border-radius: 5px;
+      display: none; /* Hidden by default */
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Account Closure Settings</h1>
+      <button class="account-closure-btn" onclick="showConfirmation()">סגירת חשבון</button>
+    </div>
+    
+    <div class="confirmation-section" id="confirmation-section">
+      <p>Are you sure you want to close your account?</p>
+      <button class="confirm-btn" onclick="closeAccount()">Confirm</button>
+      <button class="cancel-btn" onclick="cancelClosure()">Cancel</button>
+    </div>
+
+    <div class="notification" id="notification">
+      Your account has been successfully closed.
+    </div>
+  </div>
+
+  <script>
+    // Function to show the confirmation section
+    function showConfirmation() {
+      const confirmationSection = document.getElementById('confirmation-section');
+      confirmationSection.style.display = 'block';
+    }
+
+    // Function to close the account
+    function closeAccount() {
+      // Simulate database confirmation (in a real application, use an AJAX call here)
+      setTimeout(() => {
+        const notification = document.getElementById('notification');
+        notification.style.display = 'block'; // Show the success notification
+
+        // Hide the confirmation section after successful closure
+        const confirmationSection = document.getElementById('confirmation-section');
+        confirmationSection.style.display = 'none';
+      }, 500); // Simulate a short delay for database action
+    }
+
+    // Function to cancel the account closure
+    function cancelClosure() {
+      const confirmationSection = document.getElementById('confirmation-section');
+      confirmationSection.style.display = 'none';
+    }
+  </script>
+</body>
+</html>

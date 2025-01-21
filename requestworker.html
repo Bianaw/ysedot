@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Request to Become a Worker</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .worker-request-btn {
+      padding: 10px 20px;
+      font-size: 14px;
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .worker-request-btn:hover {
+      background-color: #388e3c;
+    }
+
+    .form-section {
+      display: none; /* Hidden by default */
+      margin-top: 20px;
+    }
+
+    .form-section form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    label {
+      font-weight: bold;
+    }
+
+    textarea {
+      width: 100%;
+      height: 80px;
+      resize: none;
+    }
+
+    input[type="text"], textarea {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .submit-btn {
+      padding: 10px 20px;
+      font-size: 14px;
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .submit-btn:hover {
+      background-color: #388e3c;
+    }
+
+    .notification {
+      margin-top: 20px;
+      padding: 10px;
+      background-color: #4caf50;
+      color: white;
+      border-radius: 5px;
+      display: none; /* Hidden by default */
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Worker Settings</h1>
+      <button class="worker-request-btn" onclick="showForm()">Request to Become a Worker</button>
+    </div>
+    
+    <div class="form-section" id="form-section">
+      <h2>Worker Application Form</h2>
+      <form id="worker-form">
+        <label for="why">Why do you want to work with us?</label>
+        <textarea id="why" name="why" required></textarea>
+        
+        <label for="experience">Describe your work experience:</label>
+        <textarea id="experience" name="experience" required></textarea>
+        
+        <label for="skills">How well do you know computers?</label>
+        <textarea id="skills" name="skills" required></textarea>
+
+        <label for="additional">Additional information:</label>
+        <textarea id="additional" name="additional"></textarea>
+
+        <button type="button" class="submit-btn" onclick="submitForm()">Submit</button>
+      </form>
+    </div>
+
+    <div class="notification" id="notification">
+      Your application has been submitted successfully. The admin will review your request.
+    </div>
+  </div>
+
+  <script>
+    // Show the application form
+    function showForm() {
+      const formSection = document.getElementById('form-section');
+      formSection.style.display = 'block';
+    }
+
+    // Handle form submission
+    function submitForm() {
+      // Simulate form validation and submission
+      const form = document.getElementById('worker-form');
+
+      if (form.reportValidity()) {
+        // Simulate a delay to mimic a database/API call
+        setTimeout(() => {
+          const notification = document.getElementById('notification');
+          notification.style.display = 'block'; // Show success notification
+
+          // Hide the form after successful submission
+          const formSection = document.getElementById('form-section');
+          formSection.style.display = 'none';
+
+          // Here you would send the data to the backend (e.g., using AJAX or Fetch API)
+          console.log("Form submitted. The admin will review it.");
+        }, 500); // Simulate delay
+      }
+    }
+  </script>
+</body>
+</html>

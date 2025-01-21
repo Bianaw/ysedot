@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Homepage</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+
+    .layout-container {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .properties-container {
+      flex: 3;
+      margin-right: 20px;
+    }
+
+    .map-container {
+      flex: 2;
+      text-align: center;
+    }
+
+    .map-container img {
+      width: 100%;
+      border-radius: 10px;
+    }
+
+    .property-card {
+      position: relative;
+      border: 1px solid #ccc;
+      padding: 20px;
+      margin: 10px 0;
+      border-radius: 5px;
+      background-color: #f9f9f9;
+    }
+
+    .property-card img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 5px;
+    }
+
+    .trash-container {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+    }
+
+    .trash-btn {
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+      font-size: 20px;
+    }
+
+    .trash-options {
+      display: none;
+      position: absolute;
+      top: 30px;
+      right: 0;
+      background-color: #444;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+      padding: 10px;
+    }
+
+    .trash-options button {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      border: none;
+      background-color: transparent;
+      color: white;
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .trash-options button:hover {
+      background-color: #555;
+    }
+
+    #favorites-icon {
+      position: relative;
+      cursor: pointer;
+    }
+
+    #favorites-count {
+      position: absolute;
+      top: -5px;
+      right: -10px;
+      background-color: red;
+      color: white;
+      border-radius: 50%;
+      font-size: 12px;
+      padding: 2px 5px;
+    }
+
+    #favorites-dropdown {
+      display: none;
+      position: absolute;
+      top: 40px;
+      right: 20px;
+      background-color: white;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+      padding: 10px;
+      min-width: 200px;
+    }
+
+    #favorites-dropdown ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    #favorites-dropdown ul li {
+      margin: 5px 0;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <header class="page-header">
+    <h1>SCM</h1>
+    <p class="subtitle">
+      Smart <span class="highlight">Community</span> Maps
+    </p>
+  </header>
+
+  <section class="buttons-container">
+    <button class="settings-button"><i class="fa-solid fa-cog"></i></button>
+    <button class="contact-button"><i class="fa-solid fa-phone"></i></button>
+    <button class="search-button"><i class="fa-solid fa-magnifying-glass"></i></button>
+    <button class="favorites-button" id="favorites-icon" onclick="toggleFavoritesDropdown()">
+      <i class="fa-solid fa-heart"></i>
+      <span id="favorites-count">
+    </button>
+    <div id="favorites-dropdown">
+      <ul id="favorites-list">
+        <!-- Favorite apartments will be added here -->
+      </ul>
+    </div>
+    <button class="notifications-button"><i class="fa-solid fa-bell"></i></button>
+  </section>
+
+  <a href="#login" class="login-button">התחברות</a>
+
+  <section class="layout-container">
+    <!-- Properties Section -->
+    <div class="properties-container">
+      <!-- Apartment 1 -->
+      <div class="property-card" id="apartment-1">
+        <div class="trash-container">
+          <button class="trash-btn" onclick="toggleTrashOptions('trash-options-1')">🗑️</button>
+          <div class="trash-options" id="trash-options-1">
+            <button onclick="markAsSold('apartment-1')">Mark as Sold</button>
+            <button onclick="markAsRented('apartment-1')">Mark as Rented</button>
+            <button onclick="deletePost('apartment-1')">Delete Post</button>
+          </div>
+        </div>
+        <img src="images/balcony.png" alt="נוף מדירה בבאר שבע">
+        <h3>דירת 4 חדרים בבאר שבע</h3>
+        <p>מיקום: שכונת רמות</p>
+        <p>מחיר: ₪1,800,000</p>
+        <p>תיאור: דירה עם מרפסת גדולה ונוף פתוח לעיר.</p>
+        <button class="favorite-button" onclick="addToFavorites(this, 'דירת 4 חדרים בבאר שבע')">
+          <i class="fa-solid fa-heart"></i>
+        </button>
+      </div>
+
+      <!-- Apartment 2 -->
+      <div class="property-card" id="apartment-2">
+        <div class="trash-container">
+          <button class="trash-btn" onclick="toggleTrashOptions('trash-options-2')">🗑️</button>
+          <div class="trash-options" id="trash-options-2">
+            <button onclick="markAsSold('apartment-2')">Mark as Sold</button>
+            <button onclick="markAsRented('apartment-2')">Mark as Rented</button>
+            <button onclick="deletePost('apartment-2')">Delete Post</button>
+          </div>
+        </div>
+        <img src="https://via.placeholder.com/300x200" alt="דירה לדוגמה">
+        <h3>דירת גן בחיפה</h3>
+        <p>מיקום: חיפה, כרמל</p>
+        <p>מחיר: ₪2,500,000</p>
+        <p>תיאור: דירת גן עם חצר פרטית, כוללת 3 חדרים ומחסן.</p>
+        <button class="favorite-button" onclick="addToFavorites(this, 'דירת גן בחיפה')">
+          <i class="fa-solid fa-heart"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Map Section -->
+    <div class="map-container">
+      <h3>מפת הדירות</h3>
+      <img src="https://via.placeholder.com/400x600" alt="מפת דירות">
+    </div>
+  </section>
+
+  <script>
+    let favoritesCount = 0;
+
+    function toggleTrashOptions(trashOptionsId) {
+      const options = document.getElementById(trashOptionsId);
+      options.style.display = options.style.display === 'block' ? 'none' : 'block';
+    }
+
+    function toggleFavoritesDropdown() {
+      const dropdown = document.getElementById('favorites-dropdown');
+      dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+    }
+
+    function addToFavorites(button, apartmentName) {
+      if (button.disabled) return; // Prevent duplicate additions
+
+      // Increment favorites count
+      favoritesCount++;
+      document.getElementById('favorites-count').textContent = favoritesCount;
+
+      // Add apartment to the favorites dropdown
+      const favoritesList = document.getElementById('favorites-list');
+      const listItem = document.createElement('li');
+      listItem.textContent = apartmentName;
+      favoritesList.appendChild(listItem);
+
+      // Disable the button to prevent multiple clicks
+      button.disabled = true;
+    }
+
+    function markAsSold(apartmentId) {
+      alert('Apartment marked as Sold!');
+    }
+
+    function markAsRented(apartmentId) {
+      alert('Apartment marked as Rented!');
+    }
+
+    function deletePost(apartmentId) {
+      document.getElementById(apartmentId).remove();
+      alert('Apartment deleted successfully!');
+    }
+  </script>
+</body>
+</html>
+<script>
+    // Function to toggle trash options dropdown visibility
+    function toggleTrashOptions(trashOptionsId) {
+      const options = document.getElementById(trashOptionsId);
+      options.style.display = options.style.display === 'block' ? 'none' : 'block';
+    }
+  
+    // Function to mark a post as sold
+    function markAsSold(apartmentId) {
+      const apartment = document.getElementById(apartmentId);
+      apartment.style.backgroundColor = 'lightgreen'; // Change background to green
+      showNotification('Post marked as SOLD successfully!', 'lightgreen');
+    }
+  
+    // Function to mark a post as rented
+    function markAsRented(apartmentId) {
+      const apartment = document.getElementById(apartmentId);
+      apartment.style.backgroundColor = 'lightyellow'; // Change background to light green
+      showNotification('Post marked as RENTED successfully!', 'light-yellow');
+    }
+  
+    // Function to show a notification
+    function showNotification(message, type) {
+      const notification = document.getElementById('notification');
+      notification.textContent = message;
+      notification.className = `notification ${type}`; // Set notification color
+      notification.style.display = 'block';
+  
+      setTimeout(() => {
+        notification.style.display = 'none'; // Hide notification after 3 seconds
+      }, 3000);
+    }
+  </script>
+<button class="favorites-button" id="favorites-icon">
+    <i class="fa-solid fa-heart"></i>
+    <span id="favorites-count" class="favorites-count" style="display: none;">0</span>
+  </button>
+  

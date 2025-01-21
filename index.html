@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Homepage</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header class="page-header">
+        <h1>SCM</h1>
+        <p class="subtitle">
+          Smart <span class="highlight">Community</span> Maps
+        </p>
+    </header>    
+
+    <hr class="line">
+
+    <section class="buttons-container">
+        <button class="settings-button"><i class="fa-solid fa-cog"></i></button>
+        <button class="contact-button"><i class="fa-solid fa-phone"></i></button>
+        <button class="search-button"><i class="fa-solid fa-magnifying-glass"></i></button>
+        <button class="favorites-button" id="favorites-icon">
+          <i class="fa-solid fa-heart"></i>
+          <span id="favorites-count" class="favorites-count"></span>
+        </button>
+        <button class="notifications-button"><i class="fa-solid fa-bell"></i></button>
+    </section>
+
+    <a href="#login" class="login-button">התחברות</a>
+
+    <section class="filter-bar">
+      <!-- Filter Section -->
+    </section>
+
+    <section class="layout-container">
+      <div class="properties-container">
+        <!-- Apartment 1 -->
+        <div class="property-card">
+          <img src="images/balcony.png" alt="נוף מדירה בבאר שבע">
+          <h3>דירת 4 חדרים בבאר שבע</h3>
+          <p>מיקום: שכונת רמות</p>
+          <p>מחיר: ₪1,800,000</p>
+          <p>תיאור: דירה עם מרפסת גדולה ונוף פתוח לעיר.</p>
+          <button class="favorite-button"><i class="fa-solid fa-heart"></i></button>
+        </div>
+  
+        <!-- Apartment 2 -->
+        <div class="property-card">
+          <img src="https://via.placeholder.com/300x200" alt="דירה לדוגמה">
+          <h3>דירת גן בחיפה</h3>
+          <p>מיקום: חיפה, כרמל</p>
+          <p>מחיר: ₪2,500,000</p>
+          <p>תיאור: דירת גן עם חצר פרטית, כוללת 3 חדרים ומחסן.</p>
+          <button class="favorite-button"><i class="fa-solid fa-heart"></i></button>
+        </div>
+  
+        <!-- Apartment 3 -->
+        <div class="property-card">
+          <img src="https://via.placeholder.com/300x200" alt="דירה לדוגמה">
+          <h3>פנטהאוז בירושלים</h3>
+          <p>מיקום: ירושלים, מרכז העיר</p>
+          <p>מחיר: ₪5,800,000</p>
+          <p>תיאור: פנטהאוז יוקרתי עם 5 חדרים, מרפסת ענקית וג'קוזי.</p>
+          <button class="favorite-button"><i class="fa-solid fa-heart"></i></button>
+        </div>
+      </div>
+  
+      <div class="map-container">
+        <h3>מפת הדירות</h3>
+        <img src="https://via.placeholder.com/400x600" alt="מפה לדוגמה">
+      </div>
+    </section>
+
+    <div id="favorites-dropdown" class="favorites-dropdown"></div>
+
+    <script src="script.js"></script>
+    <script src="unit-tests.js"></script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+[
+    {
+      "id": 1,
+      "title": "דירה מודרנית בהרצליה, קומה 2",
+      "price": 4500,
+      "rooms": 3,
+      "size": 70,
+      "floor": "2 2",
+      "image": "../images/apart1/image1.png",
+      "type": "השכרה",
+      "description": "דירה מודרנית בהרצליה, קרובה לים, כוללת מרפסת ונוף מרהיב.",
+      "features": ["מרפסת שמש", "מיזוג מרכזי"],
+      "furniture": "ספה, שולחן אוכל, ארון קיר",
+      "phoneNumber": "052-3345566",
+      "imageCount": 10,
+      "galleryFolder": "../images/apart1"
+    },
+    {
+      "id": 2,
+      "title": "פנטהאוז יוקרתי בתל אביב, קומה 10",
+      "price": 1500000,
+      "rooms": 5,
+      "size": 120,
+      "floor": "10 10",
+      "image": "../images/apart2/image1.png",
+      "type": "מכירה",
+      "description": "פנטהאוז יוקרתי בלב תל אביב, עם מרפסת גג גדולה ובריכת שחייה.",
+      "features": ["בריכת שחייה", "מעלית פרטית"],
+      "furniture": "ריהוט מלא, מערכת קולנוע ביתית",
+      "phoneNumber": "054-6677889",
+      "imageCount": 12,
+      "galleryFolder": "../images/apart2"
+    },
+    {
+      "id": 3,
+      "title": "דירת גן שקטה בחיפה, קומת קרקע",
+      "price": 3200,
+      "rooms": 4,
+      "size": 90,
+      "floor": "קומת קרקע",
+      "image": "../images/apart3/image1.png",
+      "type": "השכרה",
+      "description": "דירת גן שקטה עם גינה פרטית, מושלמת למשפחה בחיפה.",
+      "features": ["גינה פרטית", "חניה צמודה"],
+      "furniture": "מטבח מאובזר, ריהוט בסיסי",
+      "phoneNumber": "053-9988777",
+      "imageCount": 8,
+      "galleryFolder": "../images/apart3"
+    },
+    {
+      "id": 4,
+      "title": "סטודיו משתלם בבאר שבע, קומה 1",
+      "price": 750000,
+      "rooms": 1,
+      "size": 25,
+      "floor": "1 1",
+      "image": "../images/apart4/image1.png",
+      "type": "מכירה",
+      "description": "סטודיו למכירה במרכז באר שבע, מיקום מרכזי וקרוב לכל השירותים.",
+      "features": ["גישה נוחה", "מיקום מרכזי"],
+      "furniture": "מיטה, שולחן עבודה, ארון",
+      "phoneNumber": "052-2233445",
+      "imageCount": 5,
+      "galleryFolder": "../images/apart4"
+    }
+  ]
+  

@@ -1,21 +1,21 @@
 document.getElementById("resetPasswordForm").addEventListener("submit", async (e) => {
-    e.preventDefault(); // מונע את ריענון הדף
+    e.preventDefault(); // מונע רענון דף כברירת מחדל
 
-    // קבלת הנתונים מהטופס
-    const username = document.getElementById("username").value;
-    const email = document.getElementById("email").value;
+    const username = document.getElementById("username").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const resultElement = document.getElementById("result");
 
     try {
-        // שליחת בקשת POST לשרת
-        const response = await axios.post("http://localhost:5001/api/users/request-reset", {
-            username,
-            email,
-        });
+        resultElement.textContent = "Sending password reset to email";
+        resultElement.style.color = "green";
 
-        // הצגת התוצאה למשתמש
-        document.getElementById("result").textContent = response.data.message || "Request sent successfully!";
+        // המתנה של 2 שניות לפני המעבר
+        await new Promise((resolve) => setTimeout(resolve, 2000));
+
+        window.location.href = "login.html";
     } catch (error) {
-        // טיפול בשגיאות
-        document.getElementById("result").textContent = error.response?.data?.message || "An error occurred.";
+        console.error("Error:", error);
+        resultElement.textContent = "An error occurred. Please try again.";
+        resultElement.style.color = "red";
     }
 });

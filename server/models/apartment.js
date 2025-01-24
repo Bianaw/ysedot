@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const apartmentSchema = new mongoose.Schema({
   title: { type: String, required: true },
@@ -8,12 +8,14 @@ const apartmentSchema = new mongoose.Schema({
   floor: { type: String, required: true },
   type: { type: String, required: true },
   description: { type: String, required: true },
-  features: { type: [String], required: true },
+  features: [{ type: String }], // רשימה של מאפיינים
   furniture: { type: String, required: true },
   phoneNumber: { type: String, required: true },
-  galleryFolder: { type: String, required: true },
-  imageCount: { type: Number, required: true },
-  createdAt: { type: Date, default: Date.now },
+  images: { type: String, required: true }
+    
 });
 
-module.exports = mongoose.model("apartment", apartmentSchema);
+// יצירת המודל
+//module.exports = mongoose.model('Apartment', apartmentSchema);
+module.exports = mongoose.model('Apartment', apartmentSchema, 'apartment');
+

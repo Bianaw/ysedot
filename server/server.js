@@ -1,34 +1,37 @@
 require('dotenv').config();
+const nodemailer = require("nodemailer");
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const cors = require('cors');
 const multer = require('multer');
 const morgan = require('morgan');
-const nodemailer = require("nodemailer");
-
-// יצירת אפליקציה
+//const fs = require('fs'); // דרוש ליצירת תיקיות
 const app = express();
 
-const cors = require('cors');
-// Middleware
-app.use(cors({
-    origin: ['http://127.0.0.1:5501', 'http://localhost:3000'], // כל המקורות שמותר להם לגשת
-    methods: ['GET', 'POST', 'PUT', 'DELETE'], // שיטות HTTP מותרות
-    allowedHeaders: ['Content-Type', 'Authorization'], // כותרות מותרות
-}));
-app.use(morgan('dev')); // Log requests
-app.use(bodyParser.json()); // עיבוד JSON
-app.use(multer().none()); // עיבוד בקשות multipart/form-data
-app.use(express.json()); // עיבוד JSON
+// Middlewares
+app.use(cors());
+app.use(bodyParser.json());
+const upload = multer();
+app.use(upload.none()); // מתמודד עם בקשות multipart/form-data
+app.use(morgan('dev')); // לוגינג של בקשות נכנסות
 
-// Log כל בקשה נכנסת
+app.use(express.json()); // תמיכה בבקשות JSON
+app.use(express.urlencoded({ extended: true })); // תמיכה בנתוני טפסים
+
+
+// לוג של בקשות נכנסות
 app.use((req, res, next) => {
     console.log(`Incoming request: ${req.method} ${req.path}`);
     console.log("Request body:", req.body);
     next();
 });
 
-// חיבור ל-MongoDB
+// Import routes
+const userRoutes = require('./routes/userRoutes');
+app.use('/api/users', userRoutes);
+
+// MongoDB connection
 mongoose.connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
@@ -42,26 +45,29 @@ mongoose.connect(process.env.MONGO_URI, {
     console.error('Connection string used:', process.env.MONGO_URI);
 });
 
-// ייבוא נתיבים
-const userRoutes = require('./routes/userRoutes');
-const apartmentsRoutes = require('./routes/apartmentRoutes');
-
-// שימוש בנתיבים
-app.use('/api/users', userRoutes);
-app.use('/api/apartments', apartmentsRoutes);
-
-// מסלול לבדיקה
-app.post('/api/request-reset', (req, res) => {
-    res.json({ message: "Request reset route works!" });
-});
-
-// Confirm חיבור ל-MongoDB
 mongoose.connection.once('open', () => {
     console.log('MongoDB connection successful');
 });
 
-// הפעלת השרת
-const PORT = process.env.PORT || 5001; // פורט ברירת מחדל
+// Default route (optional, for testing)
+app.get('/', (req, res) => {
+    res.send("Server is running. Welcome to the API!");
+});
+
+// Handle errors for undefined routes
+app.use((req, res, next) => {
+    res.status(404).json({ message: "Route not found" });
+});
+
+// Handle global server errors
+app.use((err, req, res, next) => {
+    console.error("Global error handler:", err);
+    res.status(500).json({ message: "Internal server error" });
+});
+
+// Start the server
+const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
+

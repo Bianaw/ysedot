@@ -1,32 +1,23 @@
 const bcrypt = require('bcrypt');
 const express = require('express');
-const jwt = require('jsonwebtoken'); // לצורך יצירת טוקן
+const jwt = require('jsonwebtoken');
 const router = express.Router();
-const User = require('../models/user'); // ייבוא מודל המשתמש
-const crypto = require("crypto");
-const SECRET_KEY = "your_secret_key"; // סוד ליצירת JWT
+const User = require('../models/user');
+const Apartment = require('../models/apartment');
+const SECRET_KEY = "your_secret_key";
+const mongoose = require("mongoose");
 
-const { createUser } = require('../controllers/userController');
-const nodemailer = require('nodemailer');
-
-const resetTokens = {};
-
-const multer = require("multer");
-const upload = multer(); // הגדרה לטיפול בנתוני טפסים
-
-//נתיב הרשמה 
+// -----------------------------------
+// User Signup
+// -----------------------------------
 router.post('/signup', express.json(), async (req, res) => {
     try {
-        console.log("User Data:", req.body);
-
         const { firstName, lastName, username, password, email, phoneNumber } = req.body;
 
         if (!firstName || !lastName || !username || !password || !email || !phoneNumber) {
-            console.log("Missing fields");
             return res.status(400).send("All fields are required");
         }
 
-        // בדיקת משתמשים קיימים
         const existingUser = await User.findOne({ $or: [{ username }, { email }] });
         if (existingUser) {
             if (existingUser.username === username) {
@@ -36,7 +27,6 @@ router.post('/signup', express.json(), async (req, res) => {
             }
         }
 
-        // הצפנת סיסמה
         const hashedPassword = await bcrypt.hash(password, 10);
 
         const user = new User({
@@ -48,43 +38,36 @@ router.post('/signup', express.json(), async (req, res) => {
             phoneNumber
         });
 
-        console.log(user);
         await user.save();
-        console.log("User registered successfully");
         res.status(201).send("User registered successfully");
     } catch (error) {
-        console.error('Error during signup:', error);
+        console.error("Error during signup:", error);
         res.status(500).send("An error occurred during signup");
     }
 });
 
-
-// נתיב התחברות
+// -----------------------------------
+// User Login
+// -----------------------------------
 router.post('/login', async (req, res) => {
     try {
         const { username, password } = req.body;
-        console.log("Login attempt:", { username, password }); // הדפסת נתונים לבדיקה
 
-        // חפש את המשתמש במסד הנתונים
         const user = await User.findOne({ username });
         if (!user) {
-            console.log("Username not found:", username);
             return res.status(400).send({ message: "Invalid username or password." });
         }
 
-        // השווה את הסיסמה המוזנת לסיסמה המוצפנת
         const isPasswordValid = await bcrypt.compare(password, user.password);
         if (!isPasswordValid) {
             return res.status(400).send({ message: "Invalid username or password." });
         }
 
-        // אם הסיסמה תקינה
-        console.log("Login successful for user:", username);
-        res.status(200).send({ 
-            message: "Login successful", 
-            username: user.username, 
-            firstName: user.firstName, 
-            lastName: user.lastName 
+        res.status(200).send({
+            message: "Login successful",
+            username: user.username,
+            firstName: user.firstName,
+            lastName: user.lastName
         });
     } catch (error) {
         console.error("Error during login:", error);
@@ -92,72 +75,122 @@ router.post('/login', async (req, res) => {
     }
 });
 
-// מסלול לבקשה לשחזור סיסמה
-router.post("/request-reset", async (req, res) => {
+// -----------------------------------
+// Add Apartment
+// -----------------------------------
+router.post('/add-apartment', async (req, res) => {
     try {
-        const { username, email } = req.body;
+        const {
+            title, price, rooms, size, floor, type,
+            description, features, furniture, phoneNumber, images
+        } = req.body;
 
-        // בדיקת נתוני קלט
-        if (!username || !email) {
-            return res.status(400).send({ message: "Username and email are required." });
+        if (!title || !price || !rooms || !size || !floor || !type || !description || !furniture || !phoneNumber || !images) {
+            return res.status(400).json({ message: 'Missing required fields' });
         }
 
-        // יצירת טוקן לשחזור
-        const token = crypto.randomBytes(32).toString("hex");
-        resetTokens[token] = { username, email, expires: Date.now() + 3600000 }; // שעה תוקף
-
-        const resetLink = `http://localhost:5001/reset-password.html?token=${token}`;
-
-        // שליחת מייל
-        const transporter = nodemailer.createTransport({
-            service: "gmail",
-            auth: {
-                user: "awadbayan560@gmail.com",
-                pass: "your-app-password", // השתמש בסיסמת אפליקציה אם Gmail
-            },
+        const apartment = new Apartment({
+            title,
+            price: Number(price),
+            rooms: Number(rooms),
+            size: Number(size),
+            floor,
+            type,
+            description,
+            features: features ? features.split(',').map(f => f.trim()) : [],
+            furniture,
+            phoneNumber,
+            images
         });
 
-        const mailOptions = {
-            from: "awadbayan560@gmail.com",
-            to: email,
-            subject: "Password Reset",
-            text: `Hello ${username}, click the link below to reset your password:\n${resetLink}`,
-        };
-
-        await transporter.sendMail(mailOptions);
-
-        res.status(200).send({ message: "Password reset email sent successfully." });
-    } catch (err) {
-        console.error("Error sending email:", err);
-        res.status(500).send({ message: "Failed to send email." });
+        const savedApartment = await apartment.save();
+        console.log("Apartment saved successfully:", savedApartment);
+        res.status(201).json({ message: 'Apartment added successfully', apartment: savedApartment });
+    } catch (error) {
+        console.error('Error adding apartment:', error);
+        res.status(500).json({ message: 'Internal server error', error: error.message });
     }
 });
 
-// מסלול לעדכון סיסמה
-router.post("/reset-password", async (req, res) => {
+// -----------------------------------
+// Fetch All Apartments
+// -----------------------------------
+router.get('/apartments', async (req, res) => {
     try {
-        const { token, newPassword } = req.body;
+        const apartments = await Apartment.find();
+        res.status(200).json(apartments);
+    } catch (error) {
+        console.error('Error fetching apartments:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
 
-        // בדיקת טוקן
-        if (!resetTokens[token] || resetTokens[token].expires < Date.now()) {
-            return res.status(400).send({ message: "Invalid or expired token." });
+// -----------------------------------
+// Fetch Apartment by ID
+// -----------------------------------
+router.get('/apartments/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(400).json({ message: 'Invalid apartment ID' });
         }
 
-        const { email } = resetTokens[token];
-        delete resetTokens[token]; // מחיקת הטוקן לאחר שימוש
+        const apartment = await Apartment.findById(id);
+        if (!apartment) {
+            return res.status(404).json({ message: 'Apartment not found' });
+        }
 
-        // עדכון סיסמה
-        const hashedPassword = await bcrypt.hash(newPassword, 10);
-        console.log(`Updated password for ${email}: ${hashedPassword}`); // הדמיה בלבד
-
-        // כאן יש לעדכן את הסיסמה במסד הנתונים
-        
-        res.status(200).send({ message: "Password updated successfully." });
-    } catch (err) {
-        console.error("Error updating password:", err);
-        res.status(500).send({ message: "An error occurred while updating the password." });
+        res.status(200).json(apartment);
+    } catch (error) {
+        console.error('Error fetching apartment:', error);
+        res.status(500).json({ message: 'Internal server error' });
     }
 });
 
+// -----------------------------------
+// Update Apartment
+// -----------------------------------
+router.put('/apartments/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const updateData = req.body;
+
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(400).json({ message: 'Invalid apartment ID' });
+        }
+
+        const updatedApartment = await Apartment.findByIdAndUpdate(id, updateData, {
+            new: true,
+            runValidators: true,
+        });
+
+        if (!updatedApartment) {
+            return res.status(404).json({ message: 'Apartment not found' });
+        }
+
+        res.status(200).json({ message: 'Apartment updated successfully', apartment: updatedApartment });
+    } catch (error) {
+        console.error('Error updating apartment:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
+router.get('/apartments/:id', async (req, res) => {
+  try {
+    const apartmentId = req.params.id;
+
+    console.log("Received request for apartment ID:", apartmentId); // Debugging log
+
+    const apartment = await Apartment.findById(apartmentId);
+    if (!apartment) {
+      return res.status(404).json({ message: 'Apartment not found' });
+    }
+
+    res.status(200).json(apartment);
+  } catch (error) {
+    console.error('Error fetching apartment:', error);
+    res.status(500).json({ message: 'Internal server error', error: error.message });
+  }
+});
 
 module.exports = router;

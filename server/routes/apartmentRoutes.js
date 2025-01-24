@@ -1,11 +1,17 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
 
-// מסלול להוספת דירה
-router.post("/add", (req, res) => {
-    const apartmentData = req.body;
-    console.log("Received apartment data:", apartmentData);
-    res.status(200).send({ message: "Apartment added successfully!" });
+router.post('/add', async (req, res) => {
+    const { title, price, rooms, size, floor, type, description, features, furniture, phoneNumber, galleryFolder, imageCount } = req.body;
+
+    try {
+        // לוגיקה לטיפול בהוספת דירה
+        console.log("Adding apartment:", req.body);
+        res.status(201).json({ message: "Apartment added successfully" });
+    } catch (error) {
+        console.error("Error adding apartment:", error);
+        res.status(500).json({ message: "Internal server error" });
+    }
 });
 
 module.exports = router;

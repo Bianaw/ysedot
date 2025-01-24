@@ -1,103 +1,71 @@
-import posts from '../HomePage/posts.js';
+document.addEventListener("DOMContentLoaded", async () => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const apartmentId = urlParams.get("id");
 
-// פונקציה לטעינת תמונות ממוספרות מתוך תיקייה
-function loadGallery(folderPath, count) {
-  const images = [];
-  for (let i = 1; i <= count; i++) {
-    const imagePath = `${folderPath}/image${i}.png`;
-    images.push(imagePath);
+  if (!apartmentId) {
+    document.getElementById("details-container").innerHTML =
+      "<p>שגיאה: מזהה הדירה חסר ב-URL.</p>";
+    console.error("Missing apartment ID in the URL");
+    return;
   }
-  console.log("Gallery Images:", images);
-  return images;
-}
 
+  console.log("Fetching details for Apartment ID:", apartmentId); // Debugging log
 
-// שליפת מזהה הדירה מה-URL
-const urlParams = new URLSearchParams(window.location.search);
-const postId = parseInt(urlParams.get('id'));
+  try {
+    const response = await fetch(`http://localhost:5001/api/users/apartments/${apartmentId}`);
+    if (!response.ok) {
+      throw new Error(`שגיאה בטעינת פרטי הדירה: ${response.status}`);
+    }
 
-// חיפוש הדירה עם ה-ID המתאים
-const post = posts.find(p => p.id === postId);
+    const apartment = await response.json();
+    console.log("Fetched Apartment Details:", apartment); // Debugging log
+    renderApartmentDetails(apartment);
+  } catch (error) {
+    console.error("Error fetching apartment details:", error);
+    document.getElementById("details-container").innerHTML =
+      `<p>שגיאה בטעינת פרטי הדירה. ${error.message}</p>`;
+  }
+});
 
-// בדיקה אם הדירה נמצאה
-const detailsContainer = document.getElementById('details-container');
-if (post) {
-  // טעינת תמונות הגלריה
-  const galleryImages = loadGallery(post.galleryFolder, post.imageCount);
+// Function to render apartment details
+function renderApartmentDetails(apartment) {
+  const detailsContainer = document.getElementById("details-container");
 
-  // יצירת הקרוסלה
-  const carouselHTML = `
-    <div class="carousel">
-      <div class="carousel-images">
-        ${galleryImages.map(image => `<img src="${image}" class="carousel-image">`).join('')}
-      </div>
-      <button class="carousel-button prev">❮</button>
-      <button class="carousel-button next">❯</button>
-    </div>
-  `;
+  // Default values for fields
+  const title = apartment.title || "לא צוין כותרת";
+  const price = apartment.price ? `₪${apartment.price}` : "לא צוין מחיר";
+  const rooms = apartment.rooms || "לא צוין מספר חדרים";
+  const size = apartment.size ? `${apartment.size} מ"ר` : "לא צוין שטח";
+  const floor = apartment.floor || "לא צוין קומה";
+  const type = apartment.type || "לא צוין סוג";
+  const description = apartment.description || "לא צוין תיאור";
+  const furniture = apartment.furniture || "לא צוין מידע על ריהוט";
+  const phoneNumber = apartment.phoneNumber || "לא צוין מספר טלפון";
+  const imageSrc = apartment.images || "default-image.jpg"; // Default image if none provided
 
-  // יצירת התוכן הדינמי
+  // Handle features gracefully
+  const featuresList = Array.isArray(apartment.features) && apartment.features.length > 0
+    ? apartment.features.map((feature) => `<li>${feature}</li>`).join("")
+    : "<li>לא צוין מידע על מאפיינים</li>";
+
   detailsContainer.innerHTML = `
     <div class="property-details">
-      <h1>${post.title}</h1>
-      ${carouselHTML}
+      <h2>${title}</h2>
+      <img src="${imageSrc}" alt="${title}" class="property-image">
       <div class="details-box">
-        <p><strong>מחיר:</strong> ₪${post.price}</p>
-        <p><strong>חדרים:</strong> ${post.rooms}</p>
-        <p><strong>שטח:</strong> ${post.size} מ"ר</p>
-        <p><strong>קומה:</strong> ${post.floor}</p>
-        <p><strong>תיאור:</strong> ${post.description}</p>
+        <p><strong>מחיר:</strong> ${price}</p>
+        <p><strong>חדרים:</strong> ${rooms}</p>
+        <p><strong>שטח:</strong> ${size}</p>
+        <p><strong>קומה:</strong> ${floor}</p>
+        <p><strong>סוג:</strong> ${type}</p>
+        <p><strong>תיאור:</strong> ${description}</p>
         <h3>מאפיינים נוספים:</h3>
-        <ul>
-          ${post.features.map(feature => `<li>${feature}</li>`).join('')}
-        </ul>
+        <ul>${featuresList}</ul>
         <h3>ריהוט:</h3>
-        <p>${post.furniture}</p>
-        <!-- כפתור להצגת הטלפון -->
-      <div class="phone-container">
-        <button id="show-phone-button" class="phone-button">הצג את מספר הטלפון</button>
-        <p id="phone-number" class="phone-number" style="display: none;">${post.phoneNumber}</p>
-      </div>
+        <p>${furniture}</p>
+        <h3>מספר טלפון:</h3>
+        <p>${phoneNumber}</p>
       </div>
     </div>
   `;
-
-  // הוספת פונקציונליות לקרוסלה
-  const images = document.querySelectorAll('.carousel-image');
-  const carouselImagesContainer = document.querySelector('.carousel-images');
-  const nextButton = document.querySelector('.carousel-button.next');
-  const prevButton = document.querySelector('.carousel-button.prev');
-  let currentIndex = 0;
-
-  // פונקציה לעדכון הקרוסלה
-function updateCarousel() {
-  images.forEach((img, index) => {
-    img.style.display = index === currentIndex ? 'block' : 'none';
-  });
 }
-
-// הוספת פונקציונליות לקרוסלה
-nextButton.addEventListener('click', () => {
-  currentIndex = (currentIndex + 1) % images.length;
-  updateCarousel();
-});
-
-prevButton.addEventListener('click', () => {
-  currentIndex = (currentIndex - 1 + images.length) % images.length;
-  updateCarousel();
-});
-
- // הוספת מאזין לאירוע לחיצה על הכפתור
- document.getElementById('show-phone-button').addEventListener('click', function() {
-  const phoneNumber = document.getElementById('phone-number');
-  phoneNumber.style.display = 'block'; // מציג את המספר
-  this.style.display = 'none'; // מסתיר את הכפתור
-});
-
-// עדכון ראשוני של הקרוסלה
-updateCarousel();
-} else {
-  detailsContainer.innerHTML = '<p>דירה לא נמצאה.</p>';
-}
-
-

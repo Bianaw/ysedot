@@ -1,0 +1,62 @@
+/* עיצוב כללי */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(45deg, #450101, #450101);
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* קונטיינר לטופס */
+.form-container {
+    background: #fff;
+    color: #333;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    width: 500px;
+    max-width: 90%;
+    text-align: center;
+}
+
+/* כותרת */
+.form-container h2 {
+    margin-bottom: 1rem;
+    color: #450101;
+}
+
+/* שדות הטופס */
+.form-container input, 
+.form-container textarea {
+    width: 100%;
+    padding: 0.7rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+/* כפתור הוספת דירה */
+.form-container button {
+    width: 100%;
+    padding: 0.7rem;
+    background-color: #450101;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.form-container button:hover {
+    background-color: #450101;
+}
+
+input[type="file"] {
+    display: block;
+    margin: 10px 0;
+}

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>הוספת דירה חדשה</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="form-container">
+        <h2>הוספת דירה חדשה</h2>
+        <form id="addApartmentForm">
+            <input type="text" id="title" placeholder="כותרת" required />
+            <input type="number" id="price" placeholder="מחיר" required />
+            <input type="number" id="rooms" placeholder="חדרים" required />
+            <input type="number" id="size" placeholder="גודל" required />
+            <input type="text" id="floor" placeholder="קומה" required />
+            <input type="text" id="type" placeholder="סוג" required />
+            <textarea id="description" placeholder="תיאור" required></textarea>
+            <input type="text" id="features" placeholder="מאפיינים (מופרדים בפסיקים)" />
+            <input type="text" id="furniture" placeholder="ריהוט" required />
+            <input type="text" id="phoneNumber" placeholder="מספר טלפון" required />
+            <input type="text" id="images" placeholder="כתובת תמונה" required />
+        <button type="submit">הוסף דירה</button>
+    </form>
+    </div>
+    <script src="./addApartment.js"></script>
+</body>
+</html>

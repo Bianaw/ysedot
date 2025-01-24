@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign In</title>
     <link rel="stylesheet" href="styles.css">
-    <!-- טעינת axios -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body>
@@ -17,10 +16,11 @@
             <button type="submit">Sign In</button>
         </form>
         <div class="form-links">
-            <a href="passwordReset.html">Forgot Password?</a>
+            <a href="./passwordReset.html">Forgot Password?</a>
             <a href="signup.html">Create an Account</a>
         </div>
     </div>
+
     <script>
         document.getElementById("signInForm").addEventListener("submit", async (event) => {
             event.preventDefault();
@@ -29,22 +29,41 @@
             const password = document.getElementById("password").value.trim();
     
             try {
-                const response = await axios.post("http://localhost:5001/api/users/login", { username, password });
+                if (username === "worker" && password === "worker") {
+                    // שמירת מידע על משתמש מסוג worker
+                    localStorage.setItem("username", "worker");
+                    localStorage.setItem("firstname", "worker");
+                    localStorage.setItem("ISWORKER", true);
+                    localStorage.setItem("ISADMIN", false);
+                    alert("Login successful!");
+                    window.location.href = "../HomePage/index.html"; // מעבר לעמוד הראשי
+                } else if (username === "admin" && password === "admin") {
+                    // שמירת מידע על משתמש מסוג admin
+                    localStorage.setItem("username", "admin");
+                    localStorage.setItem("firstname", "admin");
+                    localStorage.setItem("ISWORKER", false);
+                    localStorage.setItem("ISADMIN", true);
+                    alert("Login successful!");
+                    window.location.href = "../HomePage/index.html"; // מעבר לעמוד הראשי
+                } else {
+                    // קריאת API למשתמשים שאינם admin/worker
+                    const response = await axios.post("http://localhost:5001/api/users/login", { username, password });
     
-                console.log("Login successful:", response.data);
-                alert("Login successful!");
-                
-                // שמירת שם המשתמש
-                localStorage.setItem("username", username);
-            
-                // מעבר לדף הראשי
-                window.location.href = "index.html";
+                    // שמירת פרטי המשתמש שהתקבלו מהשרת
+                    localStorage.setItem("username", response.data.username);
+                    localStorage.setItem("firstname", response.data.firstName || "User");
+                    localStorage.setItem("lastname", response.data.lastName || "");
+                    localStorage.setItem("ISWORKER", false);
+                    localStorage.setItem("ISADMIN", false);
+    
+                    alert("Login successful!");
+                    window.location.href = "../HomePage/index.html"; // מעבר לעמוד הראשי
+                }
             } catch (err) {
                 console.error("Login failed:", err.response?.data || err.message);
-                alert("Login failed: " + (err.response?.data.message || "Invalid credentials"));
+                alert("Login failed: " + (err.response?.data?.message || "Invalid credentials"));
             }
         });
     </script>
-</body>
-</html>
-
+    </body>
+    </html>

@@ -206,7 +206,7 @@ function renderPosts(apartments) {
                     <p><strong>₪${apartment.price}</strong></p>
                     <p>${apartment.type} - דירה ${apartment.rooms} חדרים (${apartment.size} מ"ר)</p>
                     <p>קומה ${apartment.floor}</p>
-<a href="../detailss/details.html?id=${apartment._id}" class="details-button">פרטים נוספים</a>
+                    <a href="../detailss/details.html?id=${apartment._id}" class="details-button">פרטים נוספים</a>
                     <a href="../Worker/editApartment.html?id=${apartment._id}" class="edit-button">ערוך</a>
 
                 </div>
@@ -214,6 +214,32 @@ function renderPosts(apartments) {
         propertiesContainer.innerHTML += postHTML;
     });
 }
+
+async function deleteApartment(apartmentId) {
+  if (!confirm('האם אתה בטוח שברצונך למחוק את הדירה הזו?')) {
+    return; // Exit if the user cancels the confirmation
+  }
+
+  try {
+    const response = await fetch(`http://localhost:5001/api/users/apartments/${apartmentId}`, {
+      method: 'DELETE',
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to delete apartment: ${response.status}`);
+    }
+
+    const result = await response.json();
+    alert(result.message);
+
+    // Optionally remove the deleted apartment from the DOM
+    document.querySelector(`[data-apartment-id="${apartmentId}"]`).remove();
+  } catch (error) {
+    console.error('Error deleting apartment:', error);
+    alert('שגיאה במחיקת הדירה.');
+  }
+}
+
 //פונקציה זו תעביר את המשתמש לדף editApart.html 
 function editApartment(apartmentId) {
   if (!apartmentId) {

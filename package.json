@@ -5,7 +5,6 @@
   "directories": {
     "test": "tests"
   },
-  
   "dependencies": {
     "@testing-library/dom": "^10.4.0",
     "abab": "^2.0.6",
@@ -77,6 +76,7 @@
     "exit": "^0.1.2",
     "expect": "^29.7.0",
     "express": "^4.21.2",
+    "express-rate-limit": "^7.5.0",
     "fast-json-stable-stringify": "^2.1.0",
     "fb-watchman": "^2.0.2",
     "fill-range": "^7.1.1",
@@ -269,4 +269,3 @@
   "license": "ISC",
   "description": ""
 }
-

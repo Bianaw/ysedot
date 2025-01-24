@@ -193,4 +193,6 @@ router.get('/apartments/:id', async (req, res) => {
   }
 });
 
+
+
 module.exports = router;

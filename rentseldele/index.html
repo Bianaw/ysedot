@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Post Management</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="post" id="post-1">
+    <div class="post-header">
+    
+      <div class="trash-container">
+        <button class="trash-btn" onclick="toggleTrashOptions()">🗑️</button>
+        <div class="trash-options" id="trash-options">
+          <button onclick="showModal('sold', 'post-1')">Mark as Sold</button>
+          <button onclick="showModal('rented', 'post-1')">Mark as Rented</button>
+          <button onclick="deletePost('post-1')">Delete Post</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal" id="confirmation-modal">
+    <div class="modal-content">
+      <p id="modal-message"></p>
+      <div class="modal-buttons">
+        <button class="confirm" onclick="confirmAction()">Confirm</button>
+        <button class="cancel" onclick="closeModal()">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notification -->
+  <div class="notification" id="notification">
+    <p id="notification-message"></p>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Account Closure Settings</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Account Closure Settings</h1>
+      <button class="account-closure-btn" onclick="showConfirmation()">סגירת חשבון</button>
+    </div>
+    
+    <div class="confirmation-section" id="confirmation-section">
+      <p>Are you sure you want to close your account?</p>
+      <button class="confirm-btn" onclick="closeAccount()">Confirm</button>
+      <button class="cancel-btn" onclick="cancelClosure()">Cancel</button>
+    </div>
+
+    <div class="notification" id="notification">
+      Your account has been successfully closed.
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

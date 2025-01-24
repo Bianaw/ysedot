@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Request to Become a Worker</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Worker Settings</h1>
+      <button class="worker-request-btn" onclick="showForm()">Request to Become a Worker</button>
+    </div>
+    
+    <div class="form-section" id="form-section">
+      <h2>Worker Application Form</h2>
+      <form id="worker-form">
+        <label for="why">Why do you want to work with us?</label>
+        <textarea id="why" name="why" required></textarea>
+        
+        <label for="experience">Describe your work experience:</label>
+        <textarea id="experience" name="experience" required></textarea>
+        
+        <label for="skills">How well do you know computers?</label>
+        <textarea id="skills" name="skills" required></textarea>
+
+        <label for="additional">Additional information:</label>
+        <textarea id="additional" name="additional"></textarea>
+
+        <button type="button" class="submit-btn" onclick="submitForm()">Submit</button>
+      </form>
+    </div>
+
+    <div class="notification" id="notification">
+      Your application has been submitted successfully. The admin will review your request.
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

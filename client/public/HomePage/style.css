@@ -441,4 +441,152 @@ button, .details-button {
   #user-actions button:hover {
     background-color: #450101; /* שינוי צבע רקע במעבר עכבר */
   }
+  .apartment-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  
+  .favorites-dropdown {
+    display: none; /* Initially hidden */
+    position: absolute;
+    top: 40px;
+    right: 0;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    width: 250px;
+    z-index: 10;
+    padding: 10px;
+  }
+  
+  .favorites-dropdown p {
+    margin: 5px 0;
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+    font-size: 1em;
+    text-align: right;
+  }
+  
+  .favorites-dropdown p:last-child {
+    border-bottom: none;
+  }
+  
+  .favorites-dropdown p:hover {
+    background-color: #f4f4f4;
+  }
+  
+  .favorites-count {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 5px 8px;
+    font-size: 0.8em;
+    font-weight: bold;
+    display: none; /* Hidden initially */
+  }
+  
+  
+  .trash-container {
+    position: relative;
+  }
+  
+  .trash-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .trash-options {
+    display: none; /* Initially hidden */
+    position: absolute;
+    top: 30px;
+    left: 0;
+    background-color: #333;
+    color: white;
+    border-radius: 5px;
+    z-index: 10;
+  }
+  
+  .trash-options button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    text-align: left;
+    background: transparent;
+    color: white;
+    cursor: pointer;
+  }
+  
+  .trash-options button:hover {
+    background-color: #444;
+  }
+  .trash-container {
+    position: relative;
+  }
+  
+  .trash-options {
+    display: none; /* Hidden by default */
+    position: absolute;
+    top: 30px;
+    right: 0;
+    background-color: #333;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    color: white;
+    z-index: 10;
+  }
+  
+  .trash-options button {
+    display: block;
+    padding: 10px 20px;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    text-align: left;
+  }
+  
+  .trash-options button:hover {
+    background-color: #444;
+  }
+  .dropdown-container {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .dropdown-container {
+    position: relative;
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 160px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+  }
+  
+  .dropdown-container:hover .dropdown-content {
+    display: block;
+  }
+  
+  .dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+  
+  .dropdown-content a:hover {
+    background-color: #ddd;
+  }
+  
   

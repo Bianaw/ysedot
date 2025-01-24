@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <div class="favorites-header">
+  </div>  
+  <link rel="stylesheet" href="../add_favorite/style.css">
+<link rel="stylesheet" href="../rentseldele/style.css">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Homepage</title>
@@ -8,6 +12,8 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
+  <script src="../add_favorite/script.js"></script>
+<script src="../rentseldele/script.js"></script>
   <!-- כותרת ראשית -->
   <div id="user-actions"></div>
   <header class="page-header">
@@ -22,11 +28,25 @@
 
   <!-- כפתורים מרכזיים -->
   <section class="buttons-container">
-    <button class="settings-button"><i class="fa-solid fa-cog"></i></button>
+    <div class="dropdown-container">
+      <button class="settings-button"><i class="fa-solid fa-cog"></i></button>
+      <div class="dropdown-content">
+        <a href="./closure_acc/index.html">Closure Account</a>
+        <a href="./requestworker/index.html">Request Worker</a>
+
+      </div>
+    </div>
+  </div>
+    
     <button class="contact-button"><i class="fa-solid fa-phone"></i></button>
     <button class="search-button"><i class="fa-solid fa-magnifying-glass"></i></button>
-    <button class="favorites-button"><i class="fa-solid fa-heart"></i></button>
-
+    
+    <!-- Favorites Button -->
+<button class="favorites-button" id="favorites-icon">
+  <i class="fa-solid fa-heart"></i>
+  <span id="favorites-count" class="favorites-count"></span>
+</button>
+<div id="favorites-dropdown" class="favorites-dropdown"></div>
     <!-- כפתור פעמון -->
     <div class="notification-button">
       <button id="notification-icon">
@@ -100,6 +120,13 @@
     <button id="search-button">חיפוש</button>
   </div>
 </section>
+</footer>
+<div class="dropdown-container">
+  <div class="dropdown-content">
+    <a href="./closure_acc/index.html">Closure Account</a>
+    <a href="./requestworker/index.html">Request Worker</a>
+  </div>
+</div>
 
 <script>
   document.addEventListener("DOMContentLoaded", () => {
@@ -151,18 +178,34 @@
     return;
   }
 
-  // יצירת HTML לכל דירה
-  posts.forEach(post => {
-    const postHTML = `
-      <div class="property-card-horizontal">
-        <img class="property-image" src="${post.image}" alt="${post.title}">
-        <div class="property-details">
-          <h3>${post.title}</h3>
-          <p><strong>₪${post.price}</strong></p>
-          <p>${post.type} - דירה ${post.rooms} חדרים (${post.size} מ"ר)</p>
-          <p>קומה ${post.floor}</p>
-          <a href="../detailss/details.html?id=${post.id}" class="details-button">פרטים נוספים</a>
-          
+  posts.forEach((post) => {
+  const postHTML = `
+    <div class="property-card-horizontal" id="apartment-${post.id}">
+      <img class="property-image" src="${post.image}" alt="${post.title}">
+      <div class="property-details">
+        <h3>${post.title}</h3>
+        <p><strong>₪${post.price}</strong></p>
+        <p>${post.type} - דירה ${post.rooms} חדרים (${post.size} מ"ר)</p>
+        <p>קומה ${post.floor}</p>
+        <a href="../detailss/details.html?id=${post.id}" class="details-button">פרטים נוספים</a>
+        <button class="favorite-button" data-id="${post.id}">
+          <i class="fa-solid fa-heart"></i>
+        </button>
+      </div>
+    </div>
+    <!-- Trash Options -->
+    <div class="trash-container">
+      <button class="trash-btn" onclick="toggleTrashOptions('${post.id}')">🗑️</button>
+      <div class="trash-options" id="trash-options-${post.id}">
+        <button onclick="markAsSold('${post.id}')">Mark as Sold</button>
+        <button onclick="markAsRented('${post.id}')">Mark as Rented</button>
+        <button onclick="deletePost('${post.id}')">Delete Post</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+        </div>
         </div>
       </div>`;
     propertiesContainer.innerHTML += postHTML;
@@ -198,11 +241,10 @@ document.getElementById('search-button').addEventListener('click', searchPosts);
   // טוען את הדירות בהתחלה
   renderPosts(posts);
 </script>
- 
 
   <!--<script type="module" src="script.js" defer></script>-->
   <script src="script.js"></script>
-
+  <div id="favorites-dropdown" class="favorites-dropdown"></div>
 
   <!-- אזור הקישורים החברתיים -->
   <footer class="help-footer">

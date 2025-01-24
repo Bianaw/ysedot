@@ -146,15 +146,97 @@
     phoneNumber: "לא צויין",
     imageCount: 6,
     galleryFolder: "../images/apart9/"
-  }
-  
-  
-  
-    
-
-  
+  }  
 ];
+// Function to render posts dynamically
+function renderPosts(posts) {
+  const propertiesContainer = document.querySelector('.properties-container');
+  propertiesContainer.innerHTML = ''; // Clear existing apartments
 
+  posts.forEach((post) => {
+    const postHTML = `
+      <div class="property-card-horizontal" id="apartment-${post.id}">
+        <img class="property-image" src="${post.image}" alt="${post.title}">
+        <div class="property-details">
+          <h3>${post.title}</h3>
+          <p><strong>₪${post.price}</strong></p>
+          <p>${post.type} - דירה ${post.rooms} חדרים (${post.size} מ"ר)</p>
+          <p>קומה ${post.floor}</p>
+          <a href="../detailss/details.html?id=${post.id}" class="details-button">פרטים נוספים</a>
+  <!-- Heart Button -->
+          <button class="favorite-button" data-id="${post.id}">
+            <i class="fa-solid fa-heart"></i>
+          </button>
+
+          <!-- Trash Options -->
+          <div class="trash-container">
+            <button class="trash-btn" data-id="${post.id}">🗑️</button>
+            <div class="trash-options" id="trash-options-${post.id}" style="display: none;">
+              <button class="mark-sold" data-id="${post.id}">Mark as Sold</button>
+              <button class="mark-rented" data-id="${post.id}">Mark as Rented</button>
+              <button class="delete-post" data-id="${post.id}">Delete Post</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+    propertiesContainer.innerHTML += postHTML;
+  });
+
+  // Attach event listeners dynamically after rendering
+  attachEventListeners();
+  attachFavoriteListeners(); // Add listeners for favorite buttons
+}
+
+// Attach Event Listeners for Actions
+function attachEventListeners() {
+  // Toggle Trash Options
+  document.querySelectorAll('.trash-btn').forEach((button) => {
+    button.addEventListener('click', () => {
+      const apartmentId = button.getAttribute('data-id');
+      const options = document.getElementById(`trash-options-${apartmentId}`);
+      options.style.display = options.style.display === 'block' ? 'none' : 'block';
+    });
+  });
+
+  // Mark as Sold
+  document.querySelectorAll('.mark-sold').forEach((button) => {
+    button.addEventListener('click', () => {
+      const apartmentId = button.getAttribute('data-id');
+      const apartment = document.getElementById(`apartment-${apartmentId}`);
+      apartment.style.backgroundColor = '#DFF2BF'; // Light green for sold
+      alert(`Apartment ${apartmentId} marked as SOLD!`);
+    });
+  });
+
+  // Mark as Rented
+  document.querySelectorAll('.mark-rented').forEach((button) => {
+    button.addEventListener('click', () => {
+      const apartmentId = button.getAttribute('data-id');
+      const apartment = document.getElementById(`apartment-${apartmentId}`);
+      apartment.style.backgroundColor = '#FFF4E5'; // Light orange for rented
+      alert(`Apartment ${apartmentId} marked as RENTED!`);
+    });
+  });
+
+  // Delete Post
+  document.querySelectorAll('.delete-post').forEach((button) => {
+    button.addEventListener('click', () => {
+      const apartmentId = button.getAttribute('data-id');
+      const apartment = document.getElementById(`apartment-${apartmentId}`);
+      apartment.remove(); // Remove the apartment from the DOM
+      alert(`Apartment ${apartmentId} deleted!`);
+    });
+  });
+}
+
+// Render apartments when the page loads
+document.addEventListener('DOMContentLoaded', () => {
+  renderPosts(posts); // Ensure `posts` contains the list of apartments
+});
+
+
+console.log(posts);
 
 export default posts; // שורת ייצוא
 

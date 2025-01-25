@@ -46,6 +46,7 @@ document.getElementById("addApartmentForm").addEventListener("submit", async (ev
 
         alert("דירה נוספה בהצלחה!");
         console.log("Server response:", response.data);
+        window.location.href = "../HomePage/index.html";
     } catch (error) {
         console.error("Error adding apartment:", error.response?.data || error.message);
         alert("שגיאה: " + (error.response?.data?.message || "לא ניתן להוסיף את הדירה."));

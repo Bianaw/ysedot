@@ -4,7 +4,6 @@ const jwt = require('jsonwebtoken');
 const router = express.Router();
 const User = require('../models/user');
 const Apartment = require('../models/apartment');
-const SECRET_KEY = "your_secret_key";
 const mongoose = require("mongoose");
 
 // -----------------------------------
@@ -193,6 +192,28 @@ router.get('/apartments/:id', async (req, res) => {
   }
 });
 
+router.get('/search', async (req, res) => {
+    const { query } = req.query;
 
+    if (!query) {
+        return res.status(400).json({ message: 'Please provide a search query.' });
+    }
+
+    try {
+        // חיפוש במסד הנתונים לפי כותרת, תיאור או כתובת
+        const results = await Apartment.find({
+            $or: [
+                { title: { $regex: query, $options: 'i' } },
+                { description: { $regex: query, $options: 'i' } },
+                { address: { $regex: query, $options: 'i' } },
+            ],
+        });
+
+        res.json(results);
+    } catch (error) {
+        console.error('Error during search:', error);
+        res.status(500).json({ message: 'Internal server error.' });
+    }
+});
 
 module.exports = router;

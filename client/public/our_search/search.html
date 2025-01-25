@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search for Apartments</title>
+    <link rel="stylesheet" href="search.css">
+</head>
+<body>
+    <div class="header">
+        <a href="../HomePage/index.html" class="back-to-home">← Back to Homepage</a>
+    </div>
+
+    <header>
+        <h1 class="search-title">Find Your Dream Apartment</h1>
+        <p class="subtitle">Search by city, neighborhood, or address</p>
+    </header>
+
+    <div class="search-container">
+        <input type="text" id="search-input" placeholder="Search...">
+        <button id="search-button">🔍 Search</button>
+    </div>
+
+    <div id="results-container" class="results">
+        <!-- Search results will appear here -->
+    </div>
+
+    <script type="module">
+        import posts from './posts.js';
+
+        function searchProperties(query) {
+            const lowerQuery = query.toLowerCase();
+            return posts.filter(post => post.title.toLowerCase().includes(lowerQuery));
+        }
+
+        const searchInput = document.getElementById('search-input');
+        const searchButton = document.getElementById('search-button');
+        const resultsContainer = document.getElementById('results-container');
+
+        searchButton.addEventListener('click', async () => {
+            const query = searchInput.value.trim();
+
+            resultsContainer.innerHTML = ''; // Clear previous results
+
+            try {
+                const response = await fetch(`http://localhost:5001/api/users/search?q=${query}`);
+                if (!response.ok) throw new Error('Error fetching search results');
+
+                const results = await response.json();
+
+                if (results.length > 0) {
+                    results.forEach(post => {
+                        const resultElement = document.createElement('div');
+                        resultElement.classList.add('result');
+
+                        resultElement.innerHTML = `
+                            <img src="${post.image || 'default-image.jpg'}" alt="Apartment Image">
+                            <div class="details">
+                                <h3>${post.title}</h3>
+                                <p><strong>₪${post.price}</strong></p>
+                                <p>${post.type} - ${post.rooms} Rooms</p>
+                                <p>${post.size} sqm</p>
+                            </div>
+                        `;
+
+                        resultsContainer.appendChild(resultElement);
+                    });
+                } else {
+                    resultsContainer.innerHTML = `<p class="no-results">No results found.</p>`;
+                }
+            } catch (error) {
+                resultsContainer.innerHTML = `<p class="error">There was an error fetching the results.</p>`;
+            }
+        });
+    </script>
+</body>
+</html>

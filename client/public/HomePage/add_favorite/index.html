@@ -1,13 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Homepage</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
+  <header class="page-header">
+    <h1>Your Favorites</h1>
+  </header>
+
+  <div class="favorites-header"></div>
+  
+  <!-- Main Content -->
+  <section>
+    <!-- Content will be dynamically added if required -->
+  </section>
+
+  <!-- Script Files -->
+  <script src="../js/script.js" defer></script>
+<script src="../add_favorite/script.js" defer></script>
+<script src="./script.js" defer></script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+      const favoritesHeader = document.querySelector(".favorites-header");
+      if (favoritesHeader) {
+          favoritesHeader.innerHTML = "<h2>Your Favorite Apartments</h2>";
+      }
+  });
+</script>
+
+</body>
+</html>
+
     <header class="page-header">
         <h1>SCM</h1>
         <p class="subtitle">

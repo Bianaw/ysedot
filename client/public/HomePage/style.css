@@ -447,8 +447,49 @@ button, .details-button {
     margin-top: 10px;
   }
   
+  /* Favorite Button Count Styling */
+.favorites-button {
+    position: relative;
+    display: inline-block;
+  }
+  
+  /* Red Circle Count */
+  .favorites-count {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 5px 8px;
+    font-size: 0.8em;
+    font-weight: bold;
+    display: none;
+  }
+  
+  /* Favorites Button */
+.favorites-button {
+    position: relative;
+    display: inline-block;
+  }
+  
+  /* Favorites Count Badge */
+  .favorites-count {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 5px 8px;
+    font-size: 0.8em;
+    font-weight: bold;
+    display: none;
+  }
+  
+  /* Favorites Dropdown */
   .favorites-dropdown {
-    display: none; /* Initially hidden */
+    display: none;
     position: absolute;
     top: 40px;
     right: 0;
@@ -466,7 +507,6 @@ button, .details-button {
     padding: 8px;
     border-bottom: 1px solid #ddd;
     font-size: 1em;
-    text-align: right;
   }
   
   .favorites-dropdown p:last-child {
@@ -477,18 +517,6 @@ button, .details-button {
     background-color: #f4f4f4;
   }
   
-  .favorites-count {
-    position: absolute;
-    top: -5px;
-    right: -5px;
-    background-color: red;
-    color: white;
-    border-radius: 50%;
-    padding: 5px 8px;
-    font-size: 0.8em;
-    font-weight: bold;
-    display: none; /* Hidden initially */
-  }
   
   
   .trash-container {

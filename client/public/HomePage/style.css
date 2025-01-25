@@ -106,7 +106,7 @@ button:hover {
     color: #333;
     font-size: 1em;
     cursor: pointer;
-    font-weight: bold; /* מדגיש את הכותרת */
+    font-weight: bold; 
 }
 
 /* Dropdown כללי */
@@ -440,6 +440,26 @@ button, .details-button {
   
   #user-actions button:hover {
     background-color: #450101; /* שינוי צבע רקע במעבר עכבר */
+  }
+  
+  .edit-button {
+    display: inline-block;
+    background-color: #450101;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .edit-button i {
+    margin-right: 5px;
+    font-size: 18px;
+  }
+  
+  .edit-button:hover {
+    background-color: #450101;
   }
   
   

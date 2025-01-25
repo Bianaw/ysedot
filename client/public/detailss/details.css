@@ -1,149 +1,73 @@
- /* עיצוב כללי לעמוד */
 body {
-    font-family: Arial, sans-serif;
-    direction: rtl;
-    margin: 0;
-    padding: 20px;
-    background-color: #ffffff;
-  }
-   /* כותרת הדירה */
-   .property-details h1 {
-    font-size: 24px;
-    color: #450101;
-    margin-bottom: 20px;
-    text-align: center;
-  }
-  
-  /* תיבה לעיצוב המידע */
-  .details-box {
-    padding: 20px;
-    background: #ffffff;
-    border-radius: 10px;
-    margin-top: 20px;
-  }
-  
-  .details-box p,
-  .details-box h3,
-  .details-box ul {
-    font-size: 20px;
-    margin-bottom: 15px;
-    line-height: 1.6;
-    color: #450101;
-    font-weight: bold;
+  font-family: Arial, sans-serif;
+  background-color: #f7f7f7;
+  margin: 0;
+  padding: 0;
+  direction: rtl;
+}
 
-  }
-  
-  /* תמונת הדירה */
-  .image-container {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  .details-image {
-    width: 100%;
-    max-width: 400px;
-    border-radius: 10px;
-  }
-  
-  /* רשימת מאפיינים */
-  .details-box ul {
-    list-style: disc;
-    padding-right: 20px;
-  }
-  
-  .carousel {
-    position: relative;
-    max-width: 600px;
-    margin: 20px auto;
-    overflow: hidden;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px 450101(0, 0, 0, 0.2);
-  }
-  
-  .carousel-images {
-    position: relative;
-  }
-  
-  .carousel-image {
-    display: none; /* הסתרת כל התמונות בתחילה */
-    width: 100%;
-    height: auto;
-  }
-  
-  .carousel-image:first-child {
-    display: block; /* הצגת התמונה הראשונה כברירת מחדל */
-  }
-  
-  .carousel-button {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: #450101(0, 0, 0, 0.5);
-    color: 450101;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-    font-size: 20px;
-    border-radius: 50%;
-  }
-  
-  .carousel-button.prev {
-    left: 10px;
-  }
-  
-  .carousel-button.next {
-    right: 10px;
-  }
-  
-  .carousel-button:hover {
-    background-color: 450101(0, 0, 0, 0.8);
-  }
-  
-  /* עיצוב כללי לכל הכפתורים */
-button, .details-button {
-    display: inline-block;
-    padding: 10px 20px; /* רווח פנימי */
-    font-size: 16px; /* גודל טקסט */
-    font-weight: bold; /* טקסט עבה */
-    text-align: center; /* יישור הטקסט */
-    text-decoration: none; /* הסרת קו תחתון */
-    color: white; /* צבע טקסט */
-    background-color: #450101; /* צבע רקע */
-    border: none; /* הסרת גבול */
-    border-radius: 5px; /* פינות מעוגלות */
-    cursor: pointer; /* סמן עכבר */
-    transition: background-color 0.3s, transform 0.2s; /* אפקט מעבר */
-  }
-  
-  /* אפקט כשריחוף עם העכבר */
-  button:hover, .details-button:hover {
-    background-color: #450101; /* צבע רקע כהה יותר */
-    transform: scale(1.05); /* אפקט הגדלה קל */
-  }
+.details-container {
+  max-width: 900px;
+  margin: 30px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px 450101(0, 0, 0, 0.1);
+  font-weight: bold; 
+}
 
-  .phone-container {
-    text-align: center;
-    margin: 20px;
-  }
-  
-  .phone-button {
-    background-color: #450101;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-  }
-  
-  .phone-button:hover {
-    background-color: #450101;
-  }
-  
-  .phone-number {
-    margin-top: 10px;
-    font-size: 18px;
-    font-weight: bold;
-    color: 450101;
-  }
-  
+.property-image {
+  width: 50%;
+  height: auto;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.details-box {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.details-box p {
+  font-size: 18px;
+  margin: 0;
+}
+
+.details-box h3 {
+  margin: 15px 0 5px;
+  color: #450101;
+  font-size: 20px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 5px;
+}
+
+.details-box ul {
+  list-style-type: disc;
+  margin: 10px 20px;
+  padding: 0;
+}
+
+.details-box ul li {
+  font-size: 16px;
+  margin: 5px 0;
+}
+
+.details-back-button {
+  display: block;
+  text-align: center;
+  margin: 20px auto;
+  width: fit-content;
+  text-decoration: none;
+  color: #fff;
+  background-color: #450101;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold; 
+
+}
+
+.details-back-button:hover {
+  background-color: #450101;
+}

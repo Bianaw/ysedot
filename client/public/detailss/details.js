@@ -53,7 +53,7 @@ function renderApartmentDetails(apartment) {
       <h2>${title}</h2>
       <img src="${imageSrc}" alt="${title}" class="property-image">
       <div class="details-box">
-        <p><strong>מחיר:</strong> ${price}</p>
+        <p><strong>מחיר :</strong> ${price}</p>
         <p><strong>חדרים:</strong> ${rooms}</p>
         <p><strong>שטח:</strong> ${size}</p>
         <p><strong>קומה:</strong> ${floor}</p>
@@ -69,3 +69,6 @@ function renderApartmentDetails(apartment) {
     </div>
   `;
 }
+
+// Export the function for testing
+module.exports = { renderApartmentDetails };

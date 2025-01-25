@@ -108,6 +108,8 @@
     const username = localStorage.getItem("username");
     const firstName = localStorage.getItem("firstname") || "User"; // ערך ברירת מחדל אם אין שם פרטי
     const lastName = localStorage.getItem("lastname") || ""; // ערך ברירת מחדל אם אין שם משפחה
+    const isWorker = localStorage.getItem("ISWORKER") === "true";
+    const isAdmin = localStorage.getItem("ISADMIN") === "true";
 
     // הצגת פרטי משתמש או כפתור התחברות
     if (username) {
@@ -122,18 +124,17 @@
         location.reload(); // רענון הדף
       });
 
+      
+
       // worker או admin
-      if ("ISADMIN" || "ISWORKER") {
+      if (isAdmin || isWorker) {
         const addButton = document.createElement("button");
         addButton.textContent = "+";
         addButton.classList.add("add-button"); // מחלקה לעיצוב הכפתור
         addButton.addEventListener("click", () => {
           // מעבר לדף הוספת דירה
         window.open('../Worker/addApartment.html', '_blank');
-        //window.location.href = "../Worker/addApartment.html";
         });
-
-        // הוספת הכפתור ליד כפתור ההגדרות
         const settingsButton = document.querySelector(".settings-button");
         if (settingsButton) {
           settingsButton.parentNode.insertBefore(addButton, settingsButton.nextSibling);
@@ -148,7 +149,6 @@
   });
 </script>
 
-
  <!-- אזור הדירות -->
 <section class="layout-container">
   <div class="properties-container">
@@ -156,8 +156,6 @@
 </section>
 
 <script type="module">
-  //import posts from './posts.js';
-  //const propertiesContainer = document.querySelector('.properties-container');
   document.addEventListener("DOMContentLoaded", fetchApartments);
   let posts = []; // משתנה גלובלי לאחסון הדירות
 
@@ -181,7 +179,8 @@ async function fetchApartments() {
 // פונקציה לציור הדירות בדף
 function renderPosts(apartments) {
     const propertiesContainer = document.querySelector('.properties-container');
-    const username = localStorage.getItem("username"); // קבלת שם המשתמש
+    const isWorker = localStorage.getItem("ISWORKER") === "true";
+    const isAdmin = localStorage.getItem("ISADMIN") === "true";
     propertiesContainer.innerHTML = ''; // ניקוי תוכן קודם
 
     if (apartments.length === 0) {
@@ -195,7 +194,11 @@ function renderPosts(apartments) {
             ? apartment.images
             : 'default-image.jpg'; // תמונת ברירת מחדל במקרה ואין כתובת
 
-      
+      // כפתור עריכה מוצג רק אם המשתמש הוא עובד או מנהל
+      const editButtonHTML = (isWorker || isAdmin) 
+      ? `<a href="../Worker/editApartment.html?id=${apartment._id}" class="edit-button"><i class="fa-solid fa-pen"></i></a>`
+      : '';
+
         const postHTML = `
             <div class="property-card-horizontal">
               <div class="property-image-container">
@@ -207,37 +210,12 @@ function renderPosts(apartments) {
                     <p>${apartment.type} - דירה ${apartment.rooms} חדרים (${apartment.size} מ"ר)</p>
                     <p>קומה ${apartment.floor}</p>
                     <a href="../detailss/details.html?id=${apartment._id}" class="details-button">פרטים נוספים</a>
-                    <a href="../Worker/editApartment.html?id=${apartment._id}" class="edit-button">ערוך</a>
+                    ${editButtonHTML}
 
                 </div>
             </div>`;
         propertiesContainer.innerHTML += postHTML;
     });
-}
-
-async function deleteApartment(apartmentId) {
-  if (!confirm('האם אתה בטוח שברצונך למחוק את הדירה הזו?')) {
-    return; // Exit if the user cancels the confirmation
-  }
-
-  try {
-    const response = await fetch(`http://localhost:5001/api/users/apartments/${apartmentId}`, {
-      method: 'DELETE',
-    });
-
-    if (!response.ok) {
-      throw new Error(`Failed to delete apartment: ${response.status}`);
-    }
-
-    const result = await response.json();
-    alert(result.message);
-
-    // Optionally remove the deleted apartment from the DOM
-    document.querySelector(`[data-apartment-id="${apartmentId}"]`).remove();
-  } catch (error) {
-    console.error('Error deleting apartment:', error);
-    alert('שגיאה במחיקת הדירה.');
-  }
 }
 
 //פונקציה זו תעביר את המשתמש לדף editApart.html 
@@ -278,8 +256,6 @@ function searchPosts() {
 
 </script>
  
-
-  <!--<script type="module" src="script.js" defer></script>-->
   <script src="script.js"></script>
 
 

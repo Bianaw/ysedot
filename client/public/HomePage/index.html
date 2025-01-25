@@ -22,9 +22,16 @@
 
   <!-- כפתורים מרכזיים -->
   <section class="buttons-container">
+    <button class="feedback-button" onclick="location.href='../feedback/index.html'">
+      <i class="fa-solid fa-comments"></i>
+    </button>  
     <button class="settings-button"><i class="fa-solid fa-cog"></i></button>
-    <button class="contact-button"><i class="fa-solid fa-phone"></i></button>
-    <button class="search-button"><i class="fa-solid fa-magnifying-glass"></i></button>
+    <button class="contact-button" onclick="location.href='../contact_us/contact.html'">
+      <i class="fa-solid fa-phone"></i>
+    </button>
+    <button class="search-button" onclick="location.href='../our_search/search.html'">
+      <i class="fa-solid fa-magnifying-glass"></i></button>
+
     <button class="favorites-button"><i class="fa-solid fa-heart"></i></button>
 
     <!-- כפתור פעמון -->
@@ -104,27 +111,44 @@
 <script>
   document.addEventListener("DOMContentLoaded", () => {
     const userActions = document.getElementById("user-actions");
+    const buttonsContainer = document.querySelector(".buttons-container"); // מיכל הכפתורים
     const username = localStorage.getItem("username");
-    const firstName = localStorage.getItem("firstname");
-    const lastName = localStorage.getItem("lastname");
+    const firstName = localStorage.getItem("firstname") || "User"; // ערך ברירת מחדל אם אין שם פרטי
+    const lastName = localStorage.getItem("lastname") || ""; // ערך ברירת מחדל אם אין שם משפחה
+    const isWorker = localStorage.getItem("ISWORKER") === "true";
+    const isAdmin = localStorage.getItem("ISADMIN") === "true";
 
-   // console.log(username)
-
-
+    // הצגת פרטי משתמש או כפתור התחברות
     if (username) {
-      // אם המשתמש מחובר
       userActions.innerHTML = `
-        <span>שלום, ${firstName} ${lastName}</span>
+        <span>welcome, ${firstName} ${lastName}</span>
         <button id="logout-button">Log Out</button>
       `;
 
       // טיפול בכפתור "Log Out"
       document.getElementById("logout-button").addEventListener("click", () => {
-        localStorage.removeItem("username"); // מחיקת שם המשתמש מה-localStorage
+        localStorage.clear(); // מחיקת נתוני המשתמש
         location.reload(); // רענון הדף
       });
+
+      
+
+      // worker או admin
+      if (isAdmin || isWorker) {
+        const addButton = document.createElement("button");
+        addButton.textContent = "+";
+        addButton.classList.add("add-button"); // מחלקה לעיצוב הכפתור
+        addButton.addEventListener("click", () => {
+          // מעבר לדף הוספת דירה
+        window.open('../Worker/addApartment.html', '_blank');
+        });
+        const settingsButton = document.querySelector(".settings-button");
+        if (settingsButton) {
+          settingsButton.parentNode.insertBefore(addButton, settingsButton.nextSibling);
+        }
+      }
     } else {
-      // אם המשתמש לא מחובר
+      // הצגת כפתור התחברות אם המשתמש לא מחובר
       userActions.innerHTML = `
         <a href="../LOGIN/login.html" class="login-button">התחברות</a>
       `;
@@ -139,68 +163,106 @@
 </section>
 
 <script type="module">
-  import posts from './posts.js';
+  document.addEventListener("DOMContentLoaded", fetchApartments);
+  let posts = []; // משתנה גלובלי לאחסון הדירות
 
-  const propertiesContainer = document.querySelector('.properties-container');
+// פונקציה לשליפת דירות מהשרת
+async function fetchApartments() {
+    try {
+        const response = await fetch('http://localhost:5001/api/users/apartments');
+        if (!response.ok) {
+            throw new Error(HTTP error! status: ${response.status});
+        }
+        posts = await response.json(); // שמירת הדירות במשתנה posts
+        renderPosts(posts); // ציור הדירות בדף
+    } catch (error) {
+        console.error('Error fetching apartments:', error);
+        document.querySelector('.properties-container').innerHTML = `
+            <p>שגיאה בטעינת הדירות: ${error.message}</p>
+        `;
+    }
+}
 
-  function renderPosts(posts) {
-  const propertiesContainer = document.querySelector('.properties-container');
-  propertiesContainer.innerHTML = ''; // מנקה תצוגה קיימת
-  if (posts.length === 0) {
-    propertiesContainer.innerHTML = '<p>לא נמצאו תוצאות</p>';
+// פונקציה לציור הדירות בדף
+function renderPosts(apartments) {
+    const propertiesContainer = document.querySelector('.properties-container');
+    const isWorker = localStorage.getItem("ISWORKER") === "true";
+    const isAdmin = localStorage.getItem("ISADMIN") === "true";
+    propertiesContainer.innerHTML = ''; // ניקוי תוכן קודם
+
+    if (apartments.length === 0) {
+        propertiesContainer.innerHTML = '<p>לא נמצאו תוצאות</p>';
+        return;
+    }
+
+    apartments.forEach(apartment => {
+      // בדיקה אם יש תמונה, ואם לא, להוסיף תמונה ברירת מחדל
+      const imageSrc = apartment.images
+            ? apartment.images
+            : 'default-image.jpg'; // תמונת ברירת מחדל במקרה ואין כתובת
+
+      // כפתור עריכה מוצג רק אם המשתמש הוא עובד או מנהל
+      const editButtonHTML = (isWorker || isAdmin) 
+      ? <a href="../Worker/editApartment.html?id=${apartment._id}" class="edit-button"><i class="fa-solid fa-pen"></i></a>
+      : '';
+
+        const postHTML = `
+            <div class="property-card-horizontal">
+              <div class="property-image-container">
+                    <img src="${imageSrc}" alt="${apartment.title}" class="property-image" />
+                </div>
+                <div class="property-details">
+                    <h3>${apartment.title}</h3>
+                    <p><strong>₪${apartment.price}</strong></p>
+                    <p>${apartment.type} - דירה ${apartment.rooms} חדרים (${apartment.size} מ"ר)</p>
+                    <p>קומה ${apartment.floor}</p>
+                    <a href="../detailss/details.html?id=${apartment._id}" class="details-button">פרטים נוספים</a>
+                    ${editButtonHTML}
+
+                </div>
+            </div>`;
+        propertiesContainer.innerHTML += postHTML;
+    });
+}
+
+//פונקציה זו תעביר את המשתמש לדף editApart.html 
+function editApartment(apartmentId) {
+  if (!apartmentId) {
+    alert('מזהה הדירה חסר!');
     return;
   }
-
-  // יצירת HTML לכל דירה
-  posts.forEach(post => {
-    const postHTML = `
-      <div class="property-card-horizontal">
-        <img class="property-image" src="${post.image}" alt="${post.title}">
-        <div class="property-details">
-          <h3>${post.title}</h3>
-          <p><strong>₪${post.price}</strong></p>
-          <p>${post.type} - דירה ${post.rooms} חדרים (${post.size} מ"ר)</p>
-          <p>קומה ${post.floor}</p>
-          <a href="../detailss/details.html?id=${post.id}" class="details-button">פרטים נוספים</a>
-          
-        </div>
-      </div>`;
-    propertiesContainer.innerHTML += postHTML;
-  });
+  // מעבר לדף העריכה עם מזהה הדירה
+  window.location.href = ../Worker/editApart.html?id=${apartmentId};
 }
+// הפיכת הפונקציה לזמינה גלובלית
+window.editApartment = editApartment;
 
-  // פונקציה לחיפוש
 function searchPosts() {
-    const type = document.getElementById('filter-transaction').value;
-    const maxPrice = parseFloat(document.getElementById('filter-price').value) || Infinity;
-    const rooms = document.querySelector('input[name="rooms"]:checked').value;
+        const type = document.getElementById('filter-transaction').value;
+        const maxPrice = parseFloat(document.getElementById('filter-price').value) || Infinity;
+        const rooms = document.querySelector('input[name="rooms"]:checked').value;
 
-    // סינון הדירות
-    const filteredPosts = posts.filter((post) => {
-        const matchesType = type === 'all' || post.type === type;
-        const matchesPrice = post.price <= maxPrice;
-        const matchesRooms = rooms === '0' || post.rooms.toString() === rooms;
+        const filteredPosts = posts.filter((post) => {
+            const matchesType = type === 'all' || post.type === type;
+            const matchesPrice = post.price <= maxPrice;
+            const matchesRooms = rooms === '0' || post.rooms.toString() === rooms;
 
-        return matchesType && matchesPrice && matchesRooms;
-    });
+            return matchesType && matchesPrice && matchesRooms;
+        });
 
-    // שמירת התוצאות ב-localStorage
-    localStorage.setItem('searchResults', JSON.stringify(filteredPosts));
+        // שמירת התוצאות ב-localStorage
+        localStorage.setItem('searchResults', JSON.stringify(filteredPosts));
 
-    // מעבר לדף התוצאות
-    window.location.href = '../search/search.html';
-}
+        // מעבר לדף תוצאות
+        window.location.href = '../search/search.html';
+    }
 
-// הוספת מאזין לאירוע לחיצה על כפתור חיפוש
-document.getElementById('search-button').addEventListener('click', searchPosts);
+    document.getElementById('search-button').addEventListener('click', searchPosts);
 
+    fetchApartments();
 
-  // טוען את הדירות בהתחלה
-  renderPosts(posts);
 </script>
  
-
-  <!--<script type="module" src="script.js" defer></script>-->
   <script src="script.js"></script>
 
 

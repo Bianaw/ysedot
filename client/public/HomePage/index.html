@@ -9,6 +9,7 @@
   <title>My Homepage</title>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
 </head>
 <body>
   <script src="../add_favorite/script.js" defer></script>
@@ -40,9 +41,15 @@
       </div>
     </div>
   </div>
-    
-    <button class="contact-button"><i class="fa-solid fa-phone"></i></button>
-    <button class="search-button"><i class="fa-solid fa-magnifying-glass"></i></button> 
+  
+  <a href="../contact_us/contact.html" class="contact-button">
+    <i class="fa-solid fa-phone"></i>
+</a>
+
+<a href="../out-search/search.html" class="search-link">
+  <button class="search-button"><i class="fa-solid fa-magnifying-glass"></i></button>
+</a>
+
 <button class="favorites-button" id="favorites-icon">
   <i class="fa-solid fa-heart"></i>
   <span id="favorites-count" class="favorites-count"></span>
@@ -129,6 +136,9 @@
     <a href="./requestworker/index.html">Request Worker</a>
   </div>
 </div>
+<a href="../worker/WelcomWorker/WelcomWorker.html" class="worker-section-button">
+  <button>Worker Section</button>
+</a>
 
 <script>
   document.addEventListener("DOMContentLoaded", () => {

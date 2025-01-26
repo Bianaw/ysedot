@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Contact</title>
+  <link rel="stylesheet" href="css/shared.css">
+  <script src="js/scriptU.js" defer></script>
+</head>
+<body>
+  <div class="scm-brand">
+    <h1>SCM</h1>
+    <p>Smart Community Map</p>
+  </div>
+
+  <div id="notification" class="notification"></div>
+
+  <div class="contact-container">
+    <h2>Contact Us</h2>
+    <form id="user-form">
+      <label for="recipient">Send To</label>
+      <select id="recipient" required>
+        <option value="" disabled selected>Select Recipient</option>
+        <option value="admin">Admin</option>
+        <option value="worker">Worker</option>
+      </select>
+
+      <label for="message">Technical Issue</label>
+      <textarea id="message" placeholder="Describe the issue..." required></textarea>
+
+      <button type="submit">Send Message</button>
+    </form>
+  </div>
+</body>
+</html>

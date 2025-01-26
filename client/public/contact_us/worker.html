@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Admin</title>
+  <link rel="stylesheet" href="css/shared.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background-color: #450101;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .notification {
+      position: fixed;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #4caf50;
+      color: white;
+      padding: 15px 20px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: bold;
+      text-align: center;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+      z-index: 1000;
+      display: none;
+      width: 90%;
+      max-width: 500px;
+    }
+
+    .notification button {
+      position: absolute;
+      top: 5px;
+      right: 10px;
+      background: transparent;
+      border: none;
+      font-size: 16px;
+      color: white;
+      cursor: pointer;
+    }
+
+    .contact-container {
+      background-color: white;
+      color: #333;
+      padding: 25px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      width: 400px;
+      text-align: center;
+    }
+
+    .contact-container h2 {
+      color: #450101;
+      margin-bottom: 20px;
+    }
+
+    .contact-container textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 14px;
+      resize: none;
+      height: 120px;
+    }
+
+    .contact-container button {
+      display: block;
+      width: 100%;
+      background-color: #450101;
+      color: white;
+      border: none;
+      padding: 12px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: background-color 0.3s ease;
+    }
+
+    .contact-container button:hover {
+      background-color: #660000;
+    }
+  </style>
+</head>
+<body>
+  <div class="notification" id="successNotification">
+    Thank you! Your message has been sent successfully.
+    <button onclick="closeNotification()">×</button>
+  </div>
+
+  <div class="contact-container">
+    <h2>Contact Admin</h2>
+    <form id="adminForm">
+      <textarea id="issueDescription" placeholder="Describe the issue..." required></textarea>
+      <button type="submit">Send to Admin</button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById('adminForm').addEventListener('submit', function(event) {
+      event.preventDefault(); 
+      const description = document.getElementById('issueDescription').value;
+
+      if (description.trim() === '') {
+        alert('Please describe the issue before sending.');
+        return;
+      }
+
+      showNotification(); 
+      document.getElementById('issueDescription').value = ''; 
+    });
+
+    function showNotification() {
+      const notification = document.getElementById('successNotification');
+      notification.style.display = 'block'; 
+      setTimeout(() => {
+        notification.style.display = 'none'; 
+      }, 3000);
+    }
+
+    function closeNotification() {
+      const notification = document.getElementById('successNotification');
+      notification.style.display = 'none';
+    }
+  </script>
+</body>
+</html>

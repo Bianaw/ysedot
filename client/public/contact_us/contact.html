@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us</title>
+  <link rel="stylesheet" href="css/shared.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #450101;
+      color: white;
+    }
+
+    .container {
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 36px;
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: 18px;
+      margin-bottom: 30px;
+    }
+
+    .role-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .role-buttons button {
+      background-color: white;
+      color:#450101;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .role-buttons button:hover {
+      background-color: #660000;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Welcome to Contact Us</h1>
+    <p>Select your role:</p>
+    <div class="role-buttons">
+      <button onclick="navigateTo('user')">Register as User</button>
+      <button onclick="navigateTo('worker')">Register as Worker</button>
+    </div>
+  </div>
+
+  <script>
+    function navigateTo(role) {
+      localStorage.setItem('userRole', role);
+      window.location.href = role === 'user' ? 'user.html' : 'worker.html';
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- טעינת axios -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Welcome Back!</h2>
+        <form id="signInForm">
+            <input type="text" placeholder="Username" id="username" required>
+            <input type="password" placeholder="Password" id="password" required>
+            <button type="submit">Sign In</button>
+        </form>
+        <div class="form-links">
+            <a href="passwordReset.html">Forgot Password?</a>
+            <a href="signup.html">Create an Account</a>
+        </div>
+    </div>
+    <script>
+        document.getElementById("signInForm").addEventListener("submit", async (event) => {
+            event.preventDefault();
+    
+            const username = document.getElementById("username").value.trim();
+            const password = document.getElementById("password").value.trim();
+    
+            try {
+                const response = await axios.post("http://localhost:5001/api/users/login", { username, password });
+    
+                console.log("Login successful:", response.data);
+                alert("Login successful!");
+                
+                // שמירת שם המשתמש
+                localStorage.setItem("username", username);
+            
+                // מעבר לדף הראשי
+                window.location.href = "index.html";
+            } catch (err) {
+                console.error("Login failed:", err.response?.data || err.message);
+                alert("Login failed: " + (err.response?.data.message || "Invalid credentials"));
+            }
+        });
+    </script>
+</body>
+</html>
+

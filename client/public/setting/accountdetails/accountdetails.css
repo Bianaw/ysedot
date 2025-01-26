@@ -1,0 +1,117 @@
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #450101, #ffffff);
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  color: #450101;
+}
+
+.details-container {
+  background: #ffffff;
+  padding: 20px 30px;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(255, 0, 0, 0.38);
+  max-width: 500px;
+  width: 90%;
+  text-align: left;
+}
+
+.header {
+  margin-bottom: 20px;
+}
+
+.header h1 {
+  font-size: 28px;
+  margin: 0;
+  color: #450101;
+}
+
+.header p {
+  color: #450101;
+}
+
+.details-card {
+  background: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(136, 0, 0, 0.827);
+  margin-bottom: 20px;
+}
+
+.details-card h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: #450101;
+}
+
+.details-card p {
+  font-size: 16px;
+  margin: 10px 0;
+  color: #450101;
+}
+
+.details-card p strong {
+  font-weight: 600;
+}
+
+.logout-button {
+  padding: 12px 20px;
+  background-color: #450101;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.logout-button:hover {
+  background-color: #8b0000;
+}
+
+.logout-button:focus {
+  outline: none;
+  box-shadow: 0 0 8px rgba(139, 0, 0, 0.5);
+}
+/* Back Button Container: Position at the top-left corner */
+.back-button-container {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 1000;
+}
+
+/* Back Button: Circular design */
+.back-button {
+  background-color: #fbfbfb;
+  color: #450101;
+  border: none;
+  border-radius: 50%; /* Makes it circular */
+  width: 40px; /* Diameter of the circle */
+  height: 40px;
+  font-size: 20px; /* Size of the arrow */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Adds a subtle shadow */
+}
+
+.back-button:hover {
+  background-color: #ffffff;
+  color: #333;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Makes the shadow more prominent on hover */
+}
+
+/* For smaller screens, ensure the button is responsive */
+@media (max-width: 600px) {
+  .back-button {
+      width: 35px;
+      height: 35px;
+      font-size: 18px;
+  }
+}

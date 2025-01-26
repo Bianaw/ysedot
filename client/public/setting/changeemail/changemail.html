@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Change Email</title>
+    <link rel="stylesheet" href="changemail.css">
+</head>
+<body>
+    <div class="back-button-container">
+    <button class="back-button" onclick="window.location.href='/setting/settings.html'">←</button>
+</div>
+    <div id="changeEmailContainer">
+        <div id="changeEmailBox">
+            <h1>Change Your Email</h1>
+            <p>Update your email address easily below.</p>
+            <div class="form-group">
+                <label for="currentEmail">Current Email</label>
+                <input type="email" id="currentEmail" placeholder="Current Email">
+            </div>
+            <div class="form-group">
+                <label for="newEmail">New Email</label>
+                <input type="email" id="newEmail" placeholder="Enter New Email">
+            </div>
+            <button id="changeEmailButton">Change Email</button>
+            <p id="emailChangeMessage" style="display: none;"></p>
+        </div>
+    </div>
+    <script src="changemail.js"></script>
+</body>
+</html>

@@ -1,0 +1,158 @@
+/* General Styling */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to bottom right, #450101, #ffffff);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #333;
+}
+
+/* Container for the form */
+#changeEmailContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+/* Form box styling */
+#changeEmailBox {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    padding: 20px 40px;
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+/* Header */
+#changeEmailBox h1 {
+    color: #450101;
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+#changeEmailBox p {
+    font-size: 14px;
+    color: rgb(1, 1, 1);
+    margin-bottom: 20px;
+}
+
+/* Form fields */
+.form-group {
+    text-align: left;
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    font-size: 14px;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    transition: 0.3s;
+}
+
+/* Input hover effect */
+.form-group input:focus {
+    border-color: #450101;
+    box-shadow: 0 0 5px rgba(152, 5, 17, 0.831);
+}
+
+/* Button styling */
+#changeEmailButton {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background: linear-gradient(to right, #450101, #ffffff);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 10px;
+}
+
+#changeEmailButton:hover {
+    background: linear-gradient(to right, #450101, #ffffff);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.603);
+}
+
+/* Success message styling */
+#emailChangeMessage {
+    margin-top: 15px;
+    font-size: 14px;
+    color: green;
+    display: none;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    #changeEmailBox {
+        padding: 15px 20px;
+    }
+
+    #changeEmailBox h1 {
+        font-size: 20px;
+    }
+
+    #changeEmailButton {
+        font-size: 14px;
+        padding: 10px;
+    }
+}
+/* Back Button Container: Position at the top-left corner */
+.back-button-container {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 1000;
+}
+
+/* Back Button: Circular design */
+.back-button {
+    background-color: #fbfbfb;
+    color: #450101;
+    border: none;
+    border-radius: 50%; /* Makes it circular */
+    width: 40px; /* Diameter of the circle */
+    height: 40px;
+    font-size: 20px; /* Size of the arrow */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Adds a subtle shadow */
+}
+
+.back-button:hover {
+    background-color: #ffffff;
+    color: #333;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Makes the shadow more prominent on hover */
+}
+
+/* For smaller screens, ensure the button is responsive */
+@media (max-width: 600px) {
+    .back-button {
+        width: 35px;
+        height: 35px;
+        font-size: 18px;
+    }
+}

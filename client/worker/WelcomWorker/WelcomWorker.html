@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome Worker</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+  <header>
+    <h1>Welcome Worker</h1>
+  </header>
+
+  <!-- כפתור להוספת פוסט -->
+  <section class="add-post-container">
+    <button id="add-post-button"><i class="fa fa-plus"></i> הוסף פוסט חדש</button>
+  </section>
+
+  <!-- כרטיסיות הדירות -->
+  <section class="properties-container">
+    <div class="property-card-horizontal">
+      <img class="property-image" src="../images/apart1.png" alt="">
+      <div class="property-details">
+        <h3>104 באר שבע, שכונה ה, שדרות יעלים</h3>
+        <p><strong>₪2,100</strong></p>
+        <p>השכרה - דירה 2 חדרים (57מ"ר)</p>
+        <p>קומה 2 מתוך 4</p>
+      </div>
+      <div class="property-actions">
+        <button class="action-button edit-button"><i class="fa fa-pencil"></i></button> <!-- עריכה -->
+        <button class="action-button delete-button"><i class="fa fa-trash"></i></button> <!-- מחיקה -->
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // כפתור מעבר לדף הוספת פוסט
+    document.getElementById("add-post-button").addEventListener("click", function () {
+      window.location.href = "../worker/WelcomWorker/add-post.html";
+    });
+
+    // מחיקת פוסט
+    document.querySelectorAll(".delete-button").forEach(button => {
+      button.addEventListener("click", function () {
+        const propertyCard = this.closest(".property-card-horizontal");
+        propertyCard.remove();
+        alert("The post has been deleted!");
+      });
+    });
+
+    // עריכת פוסט
+    document.querySelectorAll(".edit-button").forEach(button => {
+      button.addEventListener("click", function () {
+        alert("Editing this post is not implemented yet!");
+      });
+    });
+  </script>
+</body>
+</html>

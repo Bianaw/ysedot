@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   
-  <link rel="stylesheet" href="../add_favorite/style.css">
+  <link rel="stylesheet" href="../add_favorite/Style.css">
   <link rel="stylesheet" href="../rentseldele/style.css">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -50,11 +50,13 @@
   <button class="search-button"><i class="fa-solid fa-magnifying-glass"></i></button>
 </a>
 
-<button class="favorites-button" id="favorites-icon">
-  <i class="fa-solid fa-heart"></i>
-  <span id="favorites-count" class="favorites-count"></span>
-</button>
-<div id="favorites-dropdown" class="favorites-dropdown"></div>
+<section class="buttons-container">
+  <button class="favorites-button" id="favorites-icon">
+    <i class="fa-solid fa-heart"></i>
+    <span id="favorites-count" class="favorites-count"></span>
+  </button>
+  <div id="favorites-dropdown" class="favorites-dropdown"></div>
+</section>
 
     <!-- כפתור פעמון -->
     <div class="notification-button">
@@ -136,10 +138,6 @@
     <a href="./requestworker/index.html">Request Worker</a>
   </div>
 </div>
-<a href="../worker/WelcomWorker/WelcomWorker.html" class="worker-section-button">
-  <button>Worker Section</button>
-</a>
-
 <script>
   document.addEventListener("DOMContentLoaded", () => {
     const userActions = document.getElementById("user-actions");
@@ -200,10 +198,11 @@
         <p>${post.type} - דירה ${post.rooms} חדרים (${post.size} מ"ר)</p>
         <p>קומה ${post.floor}</p>
         <a href="../detailss/details.html?id=${post.id}" class="details-button">פרטים נוספים</a>
-         <button class="favorite-button">Add to Favorites</button>
-</div>
-      </div>
-    </div>
+        
+         <!-- Add to Favorite Button -->
+    <button class="favorite-button" data-id="${post.id}">
+      <i class="fa-solid fa-heart"></i>
+    </button>
     <!-- Trash Options -->
     <div class="trash-container">
       <button class="trash-btn" onclick="toggleTrashOptions('${post.id}')">🗑️</button>

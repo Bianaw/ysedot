@@ -163,14 +163,17 @@ function renderPosts(posts) {
           <p>${post.type} - דירה ${post.rooms} חדרים (${post.size} מ"ר)</p>
           <p>קומה ${post.floor}</p>
           <a href="../detailss/details.html?id=${post.id}" class="details-button">פרטים נוספים</a>
-  <!-- Heart Button -->
+
+          <!-- Heart Button -->
           <button class="favorite-button" data-id="${post.id}">
             <i class="fa-solid fa-heart"></i>
           </button>
 
-          <!-- Trash Options -->
+          <!-- Trash Can Button -->
           <div class="trash-container">
-            <button class="trash-btn" data-id="${post.id}">🗑️</button>
+            <button class="trash-btn" data-id="${post.id}">
+              🗑️
+            </button>
             <div class="trash-options" id="trash-options-${post.id}" style="display: none;">
               <button class="mark-sold" data-id="${post.id}">Mark as Sold</button>
               <button class="mark-rented" data-id="${post.id}">Mark as Rented</button>
@@ -182,13 +185,15 @@ function renderPosts(posts) {
     `;
     propertiesContainer.innerHTML += postHTML;
   });
-
+  console.log(document.querySelectorAll('.favorite-button')); // Logs all favorite buttons
+  console.log(document.querySelectorAll('.trash-btn')); // Logs all trash buttons
+  
   // Attach event listeners dynamically after rendering
-  attachEventListeners();
-  attachFavoriteListeners(); // Add listeners for favorite buttons
+  attachEventListeners(); // Handles trash can functionality
+  attachFavoriteListeners(); // Handles favorite functionality
 }
 
-// Attach Event Listeners for Actions
+// Attach Event Listeners for Trash Can Actions
 function attachEventListeners() {
   // Toggle Trash Options
   document.querySelectorAll('.trash-btn').forEach((button) => {
@@ -230,13 +235,41 @@ function attachEventListeners() {
   });
 }
 
+// Attach Event Listeners for Favorite Button
+function attachFavoriteListeners() {
+  const favoriteButtons = document.querySelectorAll('.favorite-button');
+  favoriteButtons.forEach((button) => {
+    button.addEventListener('click', (event) => {
+      const apartmentId = event.target.closest('button').getAttribute('data-id');
+      const favoritesIcon = document.getElementById('favorites-icon');
+      const favoritesDropdown = document.getElementById('favorites-dropdown');
+      const favoritesCount = document.getElementById('favorites-count');
+
+      // Add favorite to the dropdown and count
+      if (!favorites.includes(apartmentId)) {
+        favorites.push(apartmentId);
+        favoritesCount.textContent = favorites.length;
+        favoritesCount.style.display = 'inline-block';
+
+        const favoriteItem = document.createElement('p');
+        favoriteItem.textContent = `Apartment ID: ${apartmentId}`;
+        favoritesDropdown.appendChild(favoriteItem);
+
+        alert(`Apartment ${apartmentId} added to favorites.`);
+      } else {
+        alert(`Apartment ${apartmentId} is already in favorites.`);
+      }
+    });
+  });
+}
+
+// Array to store favorites
+const favorites = [];
+
 // Render apartments when the page loads
 document.addEventListener('DOMContentLoaded', () => {
   renderPosts(posts); // Ensure `posts` contains the list of apartments
 });
-
-
-console.log(posts);
 
 export default posts; // שורת ייצוא
 

@@ -252,38 +252,6 @@
   </script>
 </body>
 </html>
-<script>
-    // Function to toggle trash options dropdown visibility
-    function toggleTrashOptions(trashOptionsId) {
-      const options = document.getElementById(trashOptionsId);
-      options.style.display = options.style.display === 'block' ? 'none' : 'block';
-    }
-  
-    // Function to mark a post as sold
-    function markAsSold(apartmentId) {
-      const apartment = document.getElementById(apartmentId);
-      apartment.style.backgroundColor = 'lightgreen'; // Change background to green
-      showNotification('Post marked as SOLD successfully!', 'lightgreen');
-    }
-  
-    // Function to mark a post as rented
-    function markAsRented(apartmentId) {
-      const apartment = document.getElementById(apartmentId);
-      apartment.style.backgroundColor = 'lightyellow'; // Change background to light green
-      showNotification('Post marked as RENTED successfully!', 'light-yellow');
-    }
-  
-    // Function to show a notification
-    function showNotification(message, type) {
-      const notification = document.getElementById('notification');
-      notification.textContent = message;
-      notification.className = `notification ${type}`; // Set notification color
-      notification.style.display = 'block';
-  
-      setTimeout(() => {
-        notification.style.display = 'none'; // Hide notification after 3 seconds
-      }, 3000);
-    }
   </script>
 <button class="favorites-button" id="favorites-icon">
     <i class="fa-solid fa-heart"></i>

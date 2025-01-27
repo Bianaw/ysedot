@@ -519,71 +519,59 @@ button, .details-button {
   
   
   
-  .trash-container {
-    position: relative;
-  }
-  
-  .trash-btn {
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-  }
-  
-  .trash-options {
-    display: none; /* Initially hidden */
-    position: absolute;
-    top: 30px;
-    left: 0;
-    background-color: #333;
-    color: white;
-    border-radius: 5px;
-    z-index: 10;
-  }
-  
-  .trash-options button {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    border: none;
-    text-align: left;
-    background: transparent;
-    color: white;
-    cursor: pointer;
-  }
-  
-  .trash-options button:hover {
-    background-color: #444;
-  }
-  .trash-container {
-    position: relative;
-  }
-  
-  .trash-options {
-    display: none; /* Hidden by default */
-    position: absolute;
-    top: 30px;
-    right: 0;
-    background-color: #333;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    color: white;
-    z-index: 10;
-  }
-  
-  .trash-options button {
-    display: block;
-    padding: 10px 20px;
-    background: none;
-    border: none;
-    color: white;
-    cursor: pointer;
-    text-align: left;
-  }
-  
-  .trash-options button:hover {
-    background-color: #444;
-  }
+  /* Trashcan container styles */
+.trash-container {
+  position: relative;
+  display: inline-block; /* Same inline behavior as the heart button */
+}
+
+/* Trashcan button styles (similar to heart button) */
+.trash-btn {
+  padding: 10px;
+  background-color: #450101;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.2em;
+  transition: transform 0.2s ease, background-color 0.3s;
+}
+
+.trash-btn:hover {
+  background-color: #582121;
+  transform: scale(1.05);
+}
+
+/* Trashcan dropdown menu (hidden by default) */
+.trash-options {
+  display: none; /* Initially hidden */
+  position: absolute;
+  top: 40px;
+  right: 0;
+  background-color: #333;
+  border-radius: 5px;
+  color: white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+  overflow: hidden;
+}
+
+/* Dropdown buttons inside the menu */
+.trash-options button {
+  display: block;
+  padding: 10px;
+  width: 100%;
+  background: transparent;
+  color: white;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+}
+
+.trash-options button:hover {
+  background-color: #444;
+}
+
   .dropdown-container {
     position: relative;
     display: inline-block;
@@ -638,18 +626,4 @@ button, .details-button {
 .contact-button:hover {
     background-color: #582121; /* Slightly darker background on hover */
     transform: scale(1.05); /* Scale effect on hover */
-}
-.worker-section-button button {
-  background-color: #4b1e1e; /* Same color as your other buttons */
-  color: white;
-  border: none;
-  border-radius: 10px; /* Adjust for rounded corners */
-  padding: 10px 20px; /* Adjust padding */
-  cursor: pointer;
-  font-size: 16px; /* Adjust text size */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-}
-
-.worker-section-button button:hover {
-  background-color: #732626; /* Lighter hover effect */
 }

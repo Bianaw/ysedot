@@ -1,23 +1,24 @@
-
-// הצגת הודעה כאשר לוחצים על תפריט
+// Nav link click alert
 document.querySelectorAll("nav ul li a").forEach((link) => {
     link.addEventListener("click", () => {
-      alert(`You clicked on: ${link.textContent}`);
+        alert(`You clicked on: ${link.textContent}`);
     });
-  });
+});
+
+// Dropdown menu handling
 document.addEventListener("DOMContentLoaded", function () {
     const dropdownButtons = document.querySelectorAll(".dropdown-button");
 
-    dropdownButtons.forEach(button => {
+    dropdownButtons.forEach((button) => {
         button.addEventListener("click", function () {
             const dropdownContainer = this.parentElement;
             dropdownContainer.classList.toggle("active");
         });
     });
 
-    // סגירת כל התפריטים כאשר לוחצים מחוץ לתיבה
+    // Close dropdowns when clicking outside
     document.addEventListener("click", function (e) {
-        document.querySelectorAll(".dropdown-container").forEach(container => {
+        document.querySelectorAll(".dropdown-container").forEach((container) => {
             if (!container.contains(e.target)) {
                 container.classList.remove("active");
             }
@@ -25,15 +26,14 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+// Notification system
 document.addEventListener("DOMContentLoaded", () => {
     const notificationIcon = document.getElementById("notification-icon");
     const notificationCount = document.getElementById("notification-count");
     const notificationDropdown = document.getElementById("notification-dropdown");
 
-    // רשימת הודעות לדוגמה
     let notifications = [];
 
-    // פונקציה לעדכון מספר ההודעות
     function updateNotificationCount() {
         if (notifications.length > 0) {
             notificationCount.style.display = "block";
@@ -43,7 +43,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // הצגת ההודעות בתפריט
     function displayNotifications() {
         if (notifications.length === 0) {
             notificationDropdown.innerHTML = "<p>אין הודעות חדשות</p>";
@@ -54,125 +53,94 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // הצגת התפריט בלחיצה על הפעמון
-    notificationIcon.addEventListener("click", () => {
+    notificationIcon?.addEventListener("click", () => {
         notificationDropdown.style.display =
             notificationDropdown.style.display === "block" ? "none" : "block";
         displayNotifications();
     });
 
-    // הוספת הודעה חדשה לדוגמה
     function addNotification(message) {
         notifications.push(message);
         updateNotificationCount();
     }
-   //notifications.push("הודעה חדשה");
-   // displayNotifications();
-   //notifications.length = 0;
-   //displayNotifications();
-   
-    // דוגמא להוספת הודעות
-   //addNotification("הודעה חדשה: בקשה שלך אושרה.");
-   //addNotification("הודעה חדשה: נשלחה הודעה ממשתמש.");
 
+    // Example to test notifications (uncomment for testing)
+    // addNotification("New notification: Your request has been approved.");
+    // addNotification("New message: A user sent you a message.");
 });
-// Toggle Trash Options
+
+// Trash options functionality
 function toggleTrashOptions(apartmentId) {
     const options = document.getElementById(`trash-options-${apartmentId}`);
-    options.style.display = options.style.display === "block" ? "none" : "block";
-  }
-  
-  // Mark as Sold
-  function markAsSold(apartmentId) {
-    const apartment = document.getElementById(apartmentId);
-    apartment.style.backgroundColor = "#DFF2BF"; // Light green for sold
-    alert(`Apartment ${apartmentId} marked as SOLD!`);
-  }
-  
-  // Mark as Rented
-  function markAsRented(apartmentId) {
-    const apartment = document.getElementById(apartmentId);
-    apartment.style.backgroundColor = "#FFF4E5"; // Light orange for rented
-    alert(`Apartment ${apartmentId} marked as RENTED!`);
-  }
-  
-  // Delete Post
-  function deletePost(apartmentId) {
-    const apartment = document.getElementById(apartmentId);
-    apartment.remove(); // Remove the apartment from the DOM
-    alert(`Apartment ${apartmentId} deleted!`);
-  }
-  
-function showNotification(message) {
-  const notification = document.getElementById('notification');
-  const notificationMessage = document.getElementById('notification-message');
-
-  notificationMessage.textContent = message;
-  notification.style.display = 'block';
-
-  setTimeout(() => {
-    notification.style.display = 'none';
-  }, 3000);
+    if (options) {
+        options.style.display = options.style.display === "block" ? "none" : "block";
+    }
 }
-document.addEventListener("DOMContentLoaded", () => {
-    const favoritesIcon = document.getElementById("favorites-icon");
-    const favoritesCount = document.getElementById("favorites-count");
-    const favoritesDropdown = document.getElementById("favorites-dropdown");
-    const favoriteButtons = document.querySelectorAll(".favorite-button");
 
-    let favorites = [];
-
-    // Function to update the count of favorites
-    function updateFavoritesCount() {
-        if (favorites.length > 0) {
-            favoritesCount.style.display = "block";
-            favoritesCount.textContent = favorites.length;
-        } else {
-            favoritesCount.style.display = "none";
-        }
+function markAsSold(apartmentId) {
+    const apartment = document.getElementById(apartmentId);
+    if (apartment) {
+        apartment.style.backgroundColor = "#DFF2BF"; // Light green for sold
+        alert(`Apartment ${apartmentId} marked as SOLD!`);
     }
+}
 
-    // Function to display the list of favorites in the dropdown
-    function displayFavorites() {
-        if (favorites.length === 0) {
-            favoritesDropdown.innerHTML = "<p>No favorites yet</p>";
-        } else {
-            favoritesDropdown.innerHTML = favorites
-                .map((item) => `<p>${item}</p>`)
-                .join("");
-        }
+function markAsRented(apartmentId) {
+    const apartment = document.getElementById(apartmentId);
+    if (apartment) {
+        apartment.style.backgroundColor = "#FFF4E5"; // Light orange for rented
+        alert(`Apartment ${apartmentId} marked as RENTED!`);
     }
+}
 
-    // Toggle favorites dropdown visibility
-    favoritesIcon.addEventListener("click", () => {
-        favoritesDropdown.style.display =
-            favoritesDropdown.style.display === "block" ? "none" : "block";
-        displayFavorites();
-    });
-
-    // Function to attach listeners to the favorite buttons
-    function attachFavoriteListeners() {
-        const favoriteButtons = document.querySelectorAll(".favorite-button");
-        favoriteButtons.forEach((button) => {
-            button.addEventListener("click", (event) => {
-                const propertyName = event.target
-                    .closest(".property-card")
-                    .querySelector("h3").textContent.trim();
-                if (!favorites.includes(propertyName)) {
-                    favorites.push(propertyName);
-                    updateFavoritesCount();
-                    displayFavorites();
-                    alert(`'${propertyName}' added to favorites`);
-                } else {
-                    alert(`'${propertyName}' is already in favorites`);
-                }
-            });
-        });
+function deletePost(apartmentId) {
+    const apartment = document.getElementById(apartmentId);
+    if (apartment) {
+        apartment.remove(); // Remove the apartment from the DOM
+        alert(`Apartment ${apartmentId} deleted!`);
     }
+}
 
-    // Initial attachment of listeners
-    attachFavoriteListeners();
-});
-document.addEventListener("DOMContentLoaded", () => {
-    attachFavoriteListeners();
-});
+// Notification display with timeout
+function showNotification(message) {
+    const notification = document.getElementById("notification");
+    const notificationMessage = document.getElementById("notification-message");
+
+    if (notification && notificationMessage) {
+        notificationMessage.textContent = message;
+        notification.style.display = "block";
+
+        setTimeout(() => {
+            notification.style.display = "none";
+        }, 3000);
+    }
+}
+
+// Favorites functionality
+let favoritesCount = 0;
+
+function toggleFavoritesDropdown() {
+    const dropdown = document.getElementById("favorites-dropdown");
+    if (dropdown) {
+        dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+    }
+}
+
+// Add Favorite to Dropdown Logic
+function addToFavorites(button, apartmentName) {
+    if (button.disabled) return; // Prevent duplicate additions
+  
+    // Increment favorites count
+    favoritesCount++;
+    document.getElementById('favorites-count').textContent = favoritesCount;
+  
+    // Add apartment to the favorites dropdown
+    const favoritesList = document.getElementById('favorites-dropdown');
+    const listItem = document.createElement('p'); // Change element as needed
+    listItem.textContent = apartmentName;
+    favoritesList.appendChild(listItem);
+  
+    // Disable the button to prevent multiple clicks
+    button.disabled = true;
+  }
+  
